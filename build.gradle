@@ -43,15 +43,12 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
-// the reason the groupId is 'e2immu' and not 'org.e2immu' is that this reflects Gradle's project structure.
-// we push to mavenLocal() so that we can use/test the gradle-plugin locally
-
 publishing {
     repositories {
         mavenLocal()
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/bnaudts/e2immu")
+            url = uri("https://maven.pkg.github.com/e2immu/e2immu-support")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
@@ -59,16 +56,11 @@ publishing {
         }
     }
     publications {
-        mavenJava(MavenPublication) {
-            groupId = 'e2immu'
-            artifactId = 'annotations'
+        gpr(MavenPublication) {
+            groupId = 'org.e2immu'
+            artifactId = 'e2immu-support'
             from components.java
         }
-        /*gpr(MavenPublication) {
-            groupId = 'org.e2immu'
-            artifactId = 'annotations'
-            from components.java
-        }*/
     }
 }
 
