@@ -41,10 +41,13 @@ public class TestEventuallyFinal {
         assertTrue(e.isFinal());
         assertEquals("123", e.get());
 
-        e.setFinal("123");
-        assertFalse(e.isVariable());
-        assertTrue(e.isFinal());
-        assertEquals("123", e.get());
+        try {
+            // cannot overwrite the same value
+            e.setFinal("123");
+            fail();
+        } catch (RuntimeException r) {
+            // OK!
+        }
 
         try {
             e.setFinal("1234");

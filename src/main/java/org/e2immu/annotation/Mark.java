@@ -21,10 +21,13 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to mark a modifying method. Once this method has been called, an
- * eventually level 1 or 2 immutable type becomes effectively immutable.
+ * eventually level 1 or 2 immutable type becomes effectively level 1 or 2 immutable.
+ *
+ * The annotation normally occurs on methods, but can travel to parameters when a marked method
+ * is applied to a parameter of eventually immutable type.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.PARAMETER})
 public @interface Mark {
     boolean absent() default false;
 

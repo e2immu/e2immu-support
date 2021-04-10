@@ -20,20 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * As part of the eventual computations, @Only methods can either be executed before or after a mark.
- * The annotation normally occurs on methods, but can travel to parameters when a marked method
- * is applied to a parameter of eventually immutable type.
+ * Annotation indicating that the method returns 'this'.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.PARAMETER})
-public @interface Only {
+@Target(ElementType.METHOD)
+public @interface Finalizer {
     boolean absent() default false;
 
     boolean contract() default false;
-
-    String before() default "";
-
-    String after() default "";
-
-    boolean framework() default false;
 }

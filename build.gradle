@@ -18,7 +18,7 @@ plugins {
     id 'maven-publish'
 }
 
-version '0.1.0'
+version '0.1.2'
 
 repositories {
     mavenCentral()
@@ -56,6 +56,11 @@ publishing {
         }
     }
     publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.e2immu'
+            artifactId = 'e2immu-support'
+            from components.java
+        }
         gpr(MavenPublication) {
             groupId = 'org.e2immu'
             artifactId = 'e2immu-support'
@@ -64,3 +69,8 @@ publishing {
     }
 }
 
+task copyToSite(type: Copy) {
+    from 'build/docs/javadoc/'
+    into '../e2immu-site/static/e2immu-support-javadoc/'
+    dependsOn(javadoc)
+}

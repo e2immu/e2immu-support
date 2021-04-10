@@ -32,8 +32,8 @@ public class EventuallyFinal<T> {
 
     @Mark("isFinal")
     public void setFinal(T value) {
-        if (this.isFinal && !Objects.equals(value, this.value)) {
-            throw new IllegalStateException("Trying to overwrite different final value");
+        if (this.isFinal) {
+            throw new IllegalStateException("Trying to overwrite final value");
         }
         this.isFinal = true;
         this.value = value;

@@ -20,10 +20,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of @E1Immutable @E2Immutable as a dynamic type annotation on fields and methods.
+ * Annotation computed when an eventually immutable type is guaranteed to be in its _before_ state, i.e., none of the marked methods have been called yet.
+ *
+ * Opposite of @E1Immutable @E2Immutable as a dynamic type annotation on fields, methods, and parameters.
+ * 
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface BeforeMark {
     boolean absent() default false;
 

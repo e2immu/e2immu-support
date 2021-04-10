@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
  * Annotation indicating that the method or constructor is not linked to its support data parameters.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
 public @interface Independent {
     boolean absent() default false;
 
