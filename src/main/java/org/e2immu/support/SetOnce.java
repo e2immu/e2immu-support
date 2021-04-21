@@ -18,19 +18,26 @@ import org.e2immu.annotation.*;
 
 import java.util.Objects;
 
+/**
+ * Simple example eventually level 2 immutable type which can hold a single value.
+ * This value is either not yet set, or set and immutable.
+ *
+ * @param <T> The value's type.
+ */
 @E2Container(after = "t")
 public class SetOnce<T> {
 
     @Final(after = "t")
     @Nullable // eventually not-null, not implemented yet
-    @Linked(absent = true)
-    // volatile guarantees that once the value is set, other threads see the effect immediately
     private volatile T t;
 
-    private boolean set$Precondition(T t) {
-        return this.t == null;
-    }
-
+    /**
+     * Set a value. You can do this only once per object.
+     *
+     * @param t the value to set, not null.
+     * @throws IllegalStateException if a value had been set before
+     * @throws NullPointerException  if the parameter is null
+     */
     @Mark("t")
     @Modified
     public void set(@NotNull T t) {
@@ -43,10 +50,12 @@ public class SetOnce<T> {
         }
     }
 
-    private boolean get$Precondition() {
-        return t != null;
-    }
-
+    /**
+     * Obtain the value, but only if it has been set before.
+     *
+     * @return The value, never null.
+     * @throws IllegalStateException if the value had not been set before.
+     */
     @Only(after = "t")
     @NotNull
     @NotModified
@@ -57,10 +66,14 @@ public class SetOnce<T> {
         return t;
     }
 
-    private boolean get$Precondition(String message) {
-        return t != null;
-    }
-
+    /**
+     * Obtain the value, but only if it has been set before.
+     * More informative version.
+     *
+     * @param message a message to show in the exception
+     * @return The value, never null.
+     * @throws IllegalStateException if the value had not been set before.
+     */
     @Only(after = "t")
     @NotNull
     @NotModified
@@ -71,29 +84,70 @@ public class SetOnce<T> {
         return t;
     }
 
+    /**
+     * More flexible <code>get</code> method. Returns null when the value has not yet been set.
+     *
+     * @return the value, or null.
+     */
+    @NotModified
+    @Nullable
+    public T getOrDefaultNull() {
+        if (isSet()) return get();
+        return null;
+    }
+
+    /**
+     * More flexible <code>get</code> method. Returns an alternative value when the value has not yet been set.
+     *
+     * @param alternative the alternative value, not null
+     * @return the value, or the alternative.
+     * @throws NullPointerException when the alternative is null
+     */
+    @NotModified
+    @NotNull
+    public T getOrDefault(@NotNull T alternative) {
+        if (isSet()) return get();
+        return Objects.requireNonNull(alternative);
+    }
+
+    /**
+     * Test if a value has been set.
+     *
+     * @return <code>true</code> if a value has been set.
+     */
     @NotModified
     @TestMark("t")
     public boolean isSet() {
         return t != null;
     }
 
-    @NotModified
-    public T getOrElse(T alternative) {
-        if (isSet()) return get();
-        return alternative;
-    }
-
+    /**
+     * Copy the value of another <code>SetOnce</code> object.
+     *
+     * @param other
+     */
     @Modified
-    @Mark("t") // conditionality left out at the moment
-    public void copy(SetOnce<T> other) {
+    @Mark("t")
+    public void copy(@NotNull @NotModified SetOnce<T> other) {
         if (other.isSet()) set(other.get());
     }
 
+    /**
+     * Simple toString.
+     *
+     * @return a string representation of the <code>SetOnce</code> object.
+     */
     @Override
     public String toString() {
-        return "SetOnce{" + "t=" + t + '}';
+        return "SetOnce{t=" + t + '}';
     }
 
+    /**
+     * Standard equals method, allows null.
+     *
+     * @param o the object to compare
+     * @return equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,6 +156,11 @@ public class SetOnce<T> {
         return Objects.equals(t, setOnce.t);
     }
 
+    /**
+     * The hashCode
+     *
+     * @return the hashCode of the value
+     */
     @Override
     public int hashCode() {
         return Objects.hash(t);

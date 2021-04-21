@@ -14,6 +14,10 @@
 
 package org.e2immu.annotatedapi;
 
+/**
+ * A few helper methods used in Annotated API classes.
+ *
+ */
 public class AnnotatedAPI {
 
     /**

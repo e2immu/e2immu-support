@@ -19,10 +19,28 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation used to indicate that a class is a singleton: only one instance can be created.
+ * The analyser currently implements two methods of verification:
+ * <ol>
+ *     <li>a precondition on a private static boolean field</li>
+ *     <li>one call from the initializer of a field to a single, private constructor.</li>
+ * </ol>
+ */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE})
 public @interface Singleton {
+    /**
+     * Parameter to mark that the annotation should be absent, or not.
+     *
+     * @return <code>true</code> when the analyser should not detect this annotation.
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to mark that the annotation is present, whether detected or not.
+     *
+     * @return <code>true</code> when this annotation is contracted, present.
+     */
     boolean contract() default false;
 }

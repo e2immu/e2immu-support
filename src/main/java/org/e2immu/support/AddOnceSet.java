@@ -14,9 +14,7 @@
 
 package org.e2immu.support;
 
-import org.e2immu.annotation.E2Container;
-import org.e2immu.annotation.NotNull;
-import org.e2immu.annotation.Only;
+import org.e2immu.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,19 +24,30 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
- * On top of being freezable, this type prevents removing and overwriting key-value pairs.
- * The preconditions related to the overwriting are not part of the eventually immutable
- * aspect of the type.
+ * Example of a freezable set, which disallows both removal and attempts to write an object a second time.
+ * Implemented as a map, so you can retrieve the exact object you put in using the <code>get</code> method.
+ * Elements must not be null.
+ * <p>
+ * The type is eventually level 2 immutable since its only field <code>set</code> is explicitly final,
+ * after freezing, it cannot be modified anymore, and it is independent because the only way of obtaining
+ * the whole set is via a {@link Stream}, or, when in Java 10 or higher, via a level 2 immutable copy.
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  *
- * @param <V>
+ * @param <V> The type of elements held by the set.
  */
 @E2Container(after = "frozen")
 public class AddOnceSet<V> extends Freezable {
 
     private final Map<V, V> set = new HashMap<>();
 
-    public boolean add$Modification$Size(int post, int pre, V v) { return pre == 0 || !contains(v) ? post == 1: contains(v) ? post == pre: post >= pre && post <= pre+1; }
-    public boolean add$Postcondition(V v) { return contains(v); }
+    /**
+     * Add an element to the set.
+     *
+     * @param v The element to be added.
+     * @throws IllegalStateException when the element had been added before, or when the set was already frozen.
+     * @throws NullPointerException  when the parameter is null.
+     */
     @Only(before = "frozen")
     public void add(@NotNull V v) {
         Objects.requireNonNull(v);
@@ -47,37 +56,83 @@ public class AddOnceSet<V> extends Freezable {
         set.put(v, v);
     }
 
+    /**
+     * Obtain the exact element that was added to the set.
+     *
+     * @param v the element to look up.
+     * @return An element, possibly <code>v</code> but definitely equal to <code>v</code>.
+     * @throws IllegalStateException when the element is not yet present in the set.
+     */
     @NotNull
-    public V get(V v) {
+    @NotModified
+    public V get(@NotNull V v) {
         if (!contains(v)) throw new IllegalStateException("Not yet decided on " + v);
         return Objects.requireNonNull(set.get(v)); // causes potential null pointer exception warning; that's OK
     }
 
-    public void size$Aspect$Size() {}
-    public int size() {
-        return set.size();
-    }
-
-    public static boolean contains$Value$Size(int size, boolean retVal) { return size != 0 && retVal; }
-    public boolean contains(V v) {
+    /**
+     * Check if the element is present in the set.
+     *
+     * @param v the element, not null.
+     * @return <code>true</code> when the element is present in the set.
+     */
+    @NotModified
+    public boolean contains(@NotNull V v) {
         return set.containsKey(v);
     }
 
-    public static boolean isEmpty$Value$Size(int size) { return size == 0; }
+    /**
+     * Check if the set is empty.
+     *
+     * @return <code>true</code> when the set is empty.
+     */
+    @NotModified
     public boolean isEmpty() {
         return set.isEmpty();
     }
 
-    public void visit(Consumer<V> consumer) {
+    /**
+     * Return the size of the set.
+     *
+     * @return the size of the set
+     */
+    @NotModified
+    public int size() {
+        return set.size();
+    }
+
+    /**
+     * Iterate over all elements of the set.
+     *
+     * @param consumer a consumer which will accept every value present in the set. No nulls will be presented to the
+     *                 <code>accept</code> method of the consumer.
+     * @throws NullPointerException when the consumer is null
+     */
+    @NotModified
+    public void visit(@NotNull1 @NotModified @PropagateModification Consumer<V> consumer) {
         set.keySet().forEach(consumer);
     }
 
-    public static int stream$Transfer$Size(int size) { return size; }
+    /**
+     * Return a stream of the elements of the set.
+     *
+     * @return A stream of the elements of the set. The stream will not contain nulls.
+     */
+    @NotModified
+    @E2Container
+    @NotNull1
     public Stream<V> stream() {
         return set.keySet().stream();
     }
 
-    public static int toImmutableSet$Transfer$Size(int size) { return size; }
+    /**
+     * Make a level 2 immutable copy of the underlying set. Requires Java 10+
+     *
+     * @return a level 2 immutable copy of the underlying set.
+     */
+    @NotModified
+    @NotNull1
+    @E2Container
     public Set<V> toImmutableSet() {
         return Set.copyOf(set.keySet());
     }

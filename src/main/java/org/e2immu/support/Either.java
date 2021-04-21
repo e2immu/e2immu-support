@@ -14,15 +14,21 @@
 
 package org.e2immu.support;
 
-import org.e2immu.annotation.*;
+import org.e2immu.annotation.E2Container;
+import org.e2immu.annotation.NotModified;
+import org.e2immu.annotation.NotNull;
+import org.e2immu.annotation.Nullable;
 
 import java.util.Objects;
 
 /**
- * An object holding either an object of type <code>A</code>, or one of type <code>B</code>; it cannot hold both or neither.
- *
- * <code>Either</code> is a typical example of a {@link E2Container} without support data:
- * final fields of an unbound parameter type, that are {@link NotModified}.
+ * An class holding either an object of type <code>A</code>, or one of type <code>B</code>; it cannot hold both,
+ * nor can it hold neither.
+ * <p>
+ * <code>Either</code> is level 2 immutable, because its fields are explicitly final, and of implicit immutable
+ * type (unbound parameter type).
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  *
  * @param <A>
  * @param <B>
@@ -30,13 +36,12 @@ import java.util.Objects;
 @E2Container
 public class Either<A, B> {
 
-    // because getLeft and getRight cause exceptions
+    // contracted, because getLeft and getRight cause exceptions
     @Nullable(contract = true)
     private final A left;
     @Nullable(contract = true)
     private final B right;
 
-    private static <A, B> boolean Either$Precondition(A a, B b) { return a==null && b!=null || a!=null && b==null; }
     private Either(@Nullable A a, @Nullable B b) {
         if ((a == null && b == null) || (a != null && b != null)) throw new IllegalArgumentException();
         left = a;
