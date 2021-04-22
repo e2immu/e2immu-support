@@ -20,7 +20,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation on a type to indicate that the type is a properly defined utility class.
+ * Annotation on a type to indicate that the type is a well-formed <em>utility class</em>:
+ * <ol>
+ *     <li>The class is level 2 immutable,</li>
+ *     <li>all its methods are static, and</li>
+ *     <li>the class cannot be instantiated:
+ *       <ol>
+ *         <li>all its constructors are private, and there is at least one;</li>
+ *         <li>none of these methods call the constructors.</li>
+ *       </ol>
+ *     </li>
+ * </ol>
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE})

@@ -20,8 +20,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that the method or constructor is not linked to its support data parameters.
+ * Annotation indicating that
+ * <ul>
+ *     <li>
+ *         On a non-modifying method, the return value does not link to the fields;
+ *     </li>
+ *     <li>
+ *         on a constructor, none of the parameters link to any of the fields.
+ *     </li>
+ * </ul>
+ * The linking here concerns all fields of non-implicitly immutable type.
  */
+
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
 public @interface Independent {
@@ -43,19 +53,4 @@ public @interface Independent {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * @return when a type is effectively independent, set the empty string.
-     * When it is eventually independent, return a boolean expression of strings from <code>@Mark</code>
-     * values on some of the modifying methods of the type. After these have been called, the
-     * type will become effectively independent.
-     */
-    String after() default "";
-
-    /**
-     * @return when true, the type is Independent after the framework has made all modifications.
-     * This is a short-hand for adding <code>@Only(framework=true) @Mark("framework")</code> on all modifying methods,
-     * and setting <code>after="framework"</code> on this annotation.
-     */
-    boolean framework() default false;
 }

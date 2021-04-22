@@ -20,11 +20,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to mark a modifying method. Once this method has been called, an
- * eventually level 1 or 2 immutable type becomes effectively level 1 or 2 immutable.
- *
- * The annotation normally occurs on methods, but can travel to parameters when a marked method
- * is applied to a parameter of eventually immutable type.
+ * Annotation indicating that this modifying method transitions an eventually immutable object from the <em>before</em>
+ * state to the <em>after</em> state.
+ * <p>
+ * The annotation is computed on the basis of its precondition, and assignment or modification afterwards, which breaks
+ * this condition.
+ * <p>
+ * The contracted form of this annotation is currently not implemented, but it will be in the near future
+ * (https://github.com/e2immu/e2immu/issues/48)
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.PARAMETER})
@@ -48,5 +51,11 @@ public @interface Mark {
      */
     boolean contract() default false;
 
+    /**
+     * The name of the mark, which currently is computed as the comma-separated value of the fields
+     * involved in the precondition that decides on eventual immutability.
+     *
+     * @return The name of the mark.
+     */
     String value();
 }

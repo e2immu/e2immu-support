@@ -21,7 +21,8 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to mark a non-modifying method, returning a boolean
- * on whether the mark has been achieved or not
+ * indicating whether the object is in the <em>after</em> state (<code>true</code>, marked)
+ * or in the <em>before</em> state (<code>false</code>, not yet marked).
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.METHOD)
@@ -45,7 +46,18 @@ public @interface TestMark {
      */
     boolean contract() default false;
 
+    /**
+     * The name of the mark, as explained in {@link Mark}.
+     *
+     * @return the name of the mark.
+     */
     String value();
 
+    /**
+     * This parameter, when <code>true</code>, indicates that the boolean value has been inverted: <code>true</code>
+     * is returned when the object is <em>before</em> the mark, and <code>false</code> when the object is <em>after</em> the mark.
+     *
+     * @return <code>true</code> when the meaning has been inverted.
+     */
     boolean before() default false;
 }

@@ -20,7 +20,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for debugging purposes: explains if and where a field content links to.
+ * Annotation used for debugging purposes only: it explains, or verifies, if and where a field <em>content links</em> to.
+ * It is never contracted; only computed and/or verified.
+ * <p>
+ * Content linking as a concept is explained in the <em>e2immu manual</em> and <em>The Road to Immutability</em>,
+ * both available on <a href="https://www.e2immu.org">the <em>e2immu</em> website.</a>.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
@@ -36,13 +40,9 @@ public @interface Linked1 {
     boolean absent() default false;
 
     /**
-     * Parameter to set contract mode, even if the annotation occurs in a context
-     * where verification mode is normal. Use <code>contract=true</code>
-     * to override the computation of the analyser.
+     * Explanatory parameter indicating which parameters a field content links to.
      *
-     * @return <code>true</code> when switching to contract mode.
+     * @return a string representation of each of the parameters a field content links to.
      */
-    boolean contract() default false;
-
     String[] to() default "";
 }

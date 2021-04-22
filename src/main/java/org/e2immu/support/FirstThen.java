@@ -22,11 +22,10 @@ import java.util.Objects;
  * An object which first holds an object of type <code>S</code>, and, in the second and final stage of its life-cycle,
  * holds an object of type <code>T</code>.
  * <p>
- * This class is eventually immutable: once the second stage has been reached, its fields cannot be changed anymore.
- * There is no support data and no possibility of content modification; therefore, the type is eventually {@link E2Immutable}.
+ * This class is eventually level 2 immutable: once the second stage has been reached, its fields cannot be changed anymore.
  *
- * @param <S> type of the initial stage
- * @param <T> type of the final stage
+ * @param <S> type of the <em>before</em> state
+ * @param <T> type of the <em>after</em> or final state
  */
 
 @E2Container(after = "first")
@@ -37,7 +36,7 @@ public class FirstThen<S, T> {
     private volatile T then;
 
     /**
-     * Only constructor
+     * Constructor, start in the <em>before</em> state
      *
      * @param first the initial value
      * @throws NullPointerException when the argument is <code>null</code>
@@ -46,19 +45,31 @@ public class FirstThen<S, T> {
         this.first = Objects.requireNonNull(first);
     }
 
+    /**
+     * Test if the object is in the <em>before</em> state
+     *
+     * @return <code>true</code> when the object is in the <em>before</em> state
+     */
     @NotModified
+    @TestMark(value = "first", before = true)
     public boolean isFirst() {
         return first != null;
     }
 
+    /**
+     * Test if the object is in the <em>after</em> or final state
+     *
+     * @return <code>true</code> when the object is in the <em>after</em> state
+     */
     @NotModified
+    @TestMark(value = "first")
     public boolean isSet() {
         return first == null;
     }
 
     /**
      * The method that sets the final value, discarding the initial one forever.
-     * It transitions from mutable to immutable.
+     * The object transitions from mutable to immutable, from <em>before</em> to <em>after</em>.
      *
      * @param then the final value
      * @throws NullPointerException  when the final value is <code>null</code>
@@ -78,7 +89,7 @@ public class FirstThen<S, T> {
      * Getter for the initial value.
      *
      * @return The initial value
-     * @throws IllegalStateException when the object has transitioned into the final stage
+     * @throws IllegalStateException when the object has already transitioned into the final stage
      */
     @NotNull
     @NotModified

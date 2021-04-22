@@ -20,10 +20,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of @Final: this annotation indicates that a field is not effectively or eventually final.
+ * Opposite of {@link Final}: this annotation indicates that a field is not effectively or eventually final.
  * The field can be assigned to during the whole life-cycle of the object.
- *
- *
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)

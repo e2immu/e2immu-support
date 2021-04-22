@@ -20,10 +20,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of @NotModified
+ * Opposite of {@link NotModified}. On a method, it indicates that the method modifies a field, either
+ * by assigning to it, or calling another method which does.
+ * On a field, it indicates that there exists a method which changes the object graph of the field.
+ * On a parameter, it indicates that somehow through the class, the object represented by the parameter
+ * is modified.
+ * <p>
+ * Non-modification is a requirement for fields of a level 2 immutable type.
+ * Fields of implicitly immutable type cannot be modified in a type.
+ * <p>
+ * Please refer to the <em>e2immu</em> manual for an in-depth discussion of this concept.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE, ElementType.PARAMETER, ElementType.CONSTRUCTOR})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 public @interface Modified {
 
     /**

@@ -30,8 +30,8 @@ import java.util.Objects;
  * <p>
  * This is an example class! Please extend and modify for your needs.
  *
- * @param <A>
- * @param <B>
+ * @param <A> The type of the left object.
+ * @param <B> The type fo the right object.
  */
 @E2Container
 public class Either<A, B> {
@@ -72,10 +72,20 @@ public class Either<A, B> {
         return Objects.requireNonNull(right);
     }
 
+    /**
+     * Test if the left value has been initialised.
+     *
+     * @return <code>true</code> when the left value has been initialised.
+     */
     public boolean isLeft() {
         return left != null;
     }
 
+    /**
+     * Test if the right value has been initialised.
+     *
+     * @return <code>true</code> when the right value has been initialised.
+     */
     public boolean isRight() {
         return right != null;
     }
@@ -87,7 +97,7 @@ public class Either<A, B> {
      * @param <L>   type of left side
      * @param <R>   type of right side
      * @return an <code>Either</code> object with the right side filled in.
-     * @throws NullPointerException when the first argument is <code>null</code>.
+     * @throws NullPointerException when the argument is <code>null</code>.
      */
     @NotModified
     @NotNull
@@ -102,7 +112,7 @@ public class Either<A, B> {
      * @param <L>  type of left side
      * @param <R>  type of right side
      * @return an <code>Either</code> object with the left side filled in.
-     * @throws NullPointerException when the first argument is <code>null</code>.
+     * @throws NullPointerException when the argument is <code>null</code>.
      */
     @NotModified
     @NotNull
@@ -165,6 +175,11 @@ public class Either<A, B> {
         return Objects.hash(left, right);
     }
 
+    /**
+     * String representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return "[" + left + "|" + right + "]";

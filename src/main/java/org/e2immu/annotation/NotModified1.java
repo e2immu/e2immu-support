@@ -20,8 +20,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Used for functional types, as a dynamic type annotation, to indicate that the single abstract method
- * does not modify either parameter or variables in the closure.
+ * Annotation used to indicate that the subject of the annotation (a parameter, the method result, a field) has been
+ * the object of an abstract method which is guaranteed not to modify the implicitly immutable content
+ * of the object passed to the abstract method.
+ * <p>
+ * The annotation is computed independently of {@link NotModified}, {@link Modified}.
+ * It can also be contracted, forcing that no modifying implementations of the abstract method may be applied.
+ * <p>
+ * Higher-order modifications are explained in the <em>e2immu manual</em> and <em>The Road to Immutability</em>,
+ * both available on <a href="https://www.e2immu.org">the <em>e2immu</em> website.</a>.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})

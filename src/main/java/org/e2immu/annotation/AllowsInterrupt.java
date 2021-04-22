@@ -23,8 +23,7 @@ import java.lang.annotation.Target;
  * Annotation indicating that this method or constructor increases the statement time,
  * in other words, allows the execution to be interrupted.
  * <p>
- * Please see the <em>e2immu manual</em>
- * for a more in-depth discussion of statement times.
+ * Please see the <em>e2immu manual</em> for a discussion of statement times.
  * <p>
  * Default value is true. Methods can be annotated with <code>@AllowsInterrupt(false)</code> to explicitly
  * mark that they do not interrupt.

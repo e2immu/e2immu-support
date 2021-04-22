@@ -20,8 +20,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Present when a type is neither @Container nor @E1Immutable.
- * Cannot be used as a dynamic type annotation.
+ * Present when a type is neither {@link Container} nor {@link E1Immutable}.
+ * This annotation cannot be used as a dynamic type annotation.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)

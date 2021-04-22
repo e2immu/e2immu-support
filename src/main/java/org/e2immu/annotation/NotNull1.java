@@ -21,6 +21,9 @@ import java.lang.annotation.Target;
 
 /**
  * Content not null, one level up from not null.
+ * <p>
+ * Note that a field, method or parameter cannot hold more than one of {@link NotNull}, {@link NotNull1}
+ * or {@link NotNull2} at the same time.
  */
 
 @Retention(RetentionPolicy.CLASS)
@@ -44,9 +47,4 @@ public @interface NotNull1 {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * @return when the type is effectively content not null.
-     */
-    String after() default "";
 }

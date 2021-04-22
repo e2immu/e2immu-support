@@ -20,27 +20,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that the method returns 'this'.
+ * Annotation on a method, always contracted, indicating that after calling this method,
+ * no other methods may be called anymore on the object. After calling a finalizer, the
+ * object has gone into a <em>final</em> state.
+ * <p>
+ * The analyser imposes strict rules for the life-cycle of objects with a finalizer method:
+ * <ol>
+ *     <li>
+ *         Any field of a type with finalizers must be effectively final (marked with {@link Final}).
+ *     </li>
+ *     <li>
+ *         A finalizer method can only be called on a field inside a method which is marked as a finalizer as well.
+ *     </li>
+ *     <li>
+ *         A finalizer method can never be called on a parameter or any variable linked to it,
+ *         with linking as in {@link Linked}.
+ *     </li>
+ * </ol>
+ * These rules allow the analyser to enforce the final state of the object.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.METHOD)
 public @interface Finalizer {
-
-    /**
-     * Parameter to mark that the annotation should be absent, or present.
-     * In verification mode, <code>absent=true</code> means that an error will be raised
-     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
-     *
-     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
-     */
-    boolean absent() default false;
-
-    /**
-     * Parameter to set contract mode, even if the annotation occurs in a context
-     * where verification mode is normal. Use <code>contract=true</code>
-     * to override the computation of the analyser.
-     *
-     * @return <code>true</code> when switching to contract mode.
-     */
-    boolean contract() default false;
 }

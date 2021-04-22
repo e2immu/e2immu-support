@@ -20,7 +20,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that the method returns 'this'.
+ * Annotation indicating that the method returns 'this', and allows for chaining.
+ * Whilst not enforced by the analyser, useful fluent methods will be {@link Modified}.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.METHOD)

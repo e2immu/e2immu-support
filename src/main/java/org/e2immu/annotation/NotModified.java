@@ -24,6 +24,8 @@ import java.lang.annotation.Target;
  * that no method modifies the content of the field.
  * <p>
  * Because constructors are meant to be modifying fields, this annotation is not relevant on constructors.
+ * <p>
+ * Please refer to the <em>e2immu</em> manual for an in-depth discussion of this concept.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})

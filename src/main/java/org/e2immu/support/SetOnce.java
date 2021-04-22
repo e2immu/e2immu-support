@@ -124,7 +124,7 @@ public class SetOnce<T> {
     /**
      * Copy the value of another <code>SetOnce</code> object.
      *
-     * @param other
+     * @param other the object whose value will be copied, if set.
      */
     @Modified
     @Mark("t")

@@ -20,7 +20,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of NotNull
+ * Opposite of {@link NotNull}: indicates that the method, field or parameter potentially (but not necessarily)
+ * holds the <code>null</code> value.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
@@ -43,6 +44,4 @@ public @interface Nullable {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    ElementType[] where() default {ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER};
 }

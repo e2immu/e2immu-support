@@ -20,7 +20,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks that the content of content is not null
+ * This annotation indicates that the object is {@link NotNull}, its content is {@link NotNull},
+ * and the content of its content is {@link NotNull}.
+ * <p>
+ * Note that a field, method or parameter cannot hold more than one of {@link NotNull}, {@link NotNull1} or
+ * {@link NotNull2} at the same time.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
@@ -43,9 +47,4 @@ public @interface NotNull2 {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * @return when the type is effectively content's content not null.
-     */
-    String after() default "";
 }

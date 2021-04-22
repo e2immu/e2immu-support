@@ -21,11 +21,11 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation used to indicate that modifications on a field can be ignored.
- * The simple use case is {@code System.out}, where {@code println} is a modifying
+ * The simple use case is <code>System.out</code>, where <code>println</code> is a modifying
  * method. To your application, however, this may not count as a modification but rather
  * as an action external to the system.
  * <p>
- * Note the {@code CONTRACT} default annotation type.
+ * This annotation is always contracted, never computed.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)

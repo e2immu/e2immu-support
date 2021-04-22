@@ -20,9 +20,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * On a method, indicates that it never returns null.
- * On a field, indicates that its value is never null.
- * On a parameter, indicates that it is illegal to pass null.
+ * On a method, this annotation indicates that the return value is never <code>null</code>.
+ * On a field, the annotation indicates that its value is never <code>null</code>.
+ * On a parameter, the annotation indicates that it is illegal to pass <code>null</code> as an argument,
+ * illegal meaning that an exception is guaranteed to be raised.
+ * <p>
+ * Note that a field, method or parameter cannot hold more than one of
+ * {@link NotNull}, {@link NotNull1} or {@link NotNull2} at the same time.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
@@ -45,9 +49,4 @@ public @interface NotNull {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * @return when the type is effectively not null.
-     */
-    String after() default "";
 }

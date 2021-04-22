@@ -179,6 +179,8 @@ public class SetOnceMap<K, V> extends Freezable {
      * Return a level 2 immutable copy of the underlying map.
      * <p>
      * Only present in Java 10+.
+     *
+     * @return a level 2 immutable copy
      */
     @NotNull
     @NotModified

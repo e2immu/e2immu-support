@@ -20,7 +20,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Used for parameters of abstract types
+ * Annotation used to indicate that the subject of the annotation (a parameter, the method result, a field) has been
+ * the object of an abstract method which potentially modifies the implicitly immutable content
+ * of the object passed to the abstract method.
+ * <p>
+ * The annotation is computed independently of {@link NotModified}, {@link Modified}.
+ * <p>
+ * Higher-order modifications are explained in the <em>e2immu manual</em> and <em>The Road to Immutability</em>,
+ * both available on <a href="https://www.e2immu.org">the <em>e2immu</em> website.</a>.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})

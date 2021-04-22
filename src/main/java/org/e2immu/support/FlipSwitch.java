@@ -16,13 +16,22 @@ package org.e2immu.support;
 
 import org.e2immu.annotation.*;
 
+/**
+ * Most simple example of an eventually level 2 immutable type:
+ * the object's state marker is the content of the object.
+ * The only modification one can make to the object is to transition its state.
+ */
 @E2Container(after = "t")
 public class FlipSwitch {
 
     @Final(after = "t")
     private volatile boolean t;
 
-    private boolean set$Precondition() { return !t; }
+    /**
+     * Transition the state from <em>before</em> to <em>after</em>.
+     *
+     * @throws IllegalStateException when the object was already in the <em>after</em> state
+     */
     @Mark("t")
     public void set() {
         synchronized (this) {
@@ -33,18 +42,34 @@ public class FlipSwitch {
         }
     }
 
+    /**
+     * Test if the object is already in the <em>after</em> state.
+     *
+     * @return <code>true</code> when the object is in the <em>after</em> or final state.
+     */
     @NotModified
     @TestMark("t")
     public boolean isSet() {
         return t;
     }
 
-    private boolean copy$Precondition() { return !t; }
+    /**
+     * Copy the state of another object
+     *
+     * @param other the other object
+     * @throws IllegalStateException if the object was already in <em>after</em> or final state
+     */
     @Mark("t") // but conditionally
+    @Modified
     public void copy(FlipSwitch other) {
         if (other.isSet()) set();
     }
 
+    /**
+     * A string representation of the object
+     *
+     * @return a string representation of the object
+     */
     @Override
     public String toString() {
         return "FlipSwitch{" + t + '}';

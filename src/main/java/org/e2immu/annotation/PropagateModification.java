@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
 
 /**
  * Indicates that an abstract method has been called on this parameter, and modification needs propagating
- * at the place of calling
+ * to the place of calling.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})

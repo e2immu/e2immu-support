@@ -20,12 +20,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * As part of the eventual computations, @Only methods can either be executed before or after a mark.
- * The annotation normally occurs on methods, but can travel to parameters when a marked method
- * is applied to a parameter of eventually immutable type.
+ * This annotation is part of the eventual immutability computations. Preconditions govern whether
+ * the method can be executed when the object is in the <em>before</em> state, or in the <em>after</em> state.
+ * <p>
+ * Contracting of this annotation is currently not implemented (see https://github.com/e2immu/e2immu/issues/48).
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.METHOD})
 public @interface Only {
 
     /**
@@ -46,7 +47,19 @@ public @interface Only {
      */
     boolean contract() default false;
 
+    /**
+     * When the method can only be executed in the <em>before</em> state, this parameter shows the name of the mark (see {@link Mark}).
+     * Note that the <code>before</code> and <code>after</code> parameters cannot be present at the same time.
+     *
+     * @return the name of the mark
+     */
     String before() default "";
 
+    /**
+     * When the method can only be executed in the <em>after</em> state, this parameter shows the name of the mark (see {@link Mark}).
+     * Note that the <code>before</code> and <code>after</code> parameters cannot be present at the same time.
+     *
+     * @return the name of the mark
+     */
     String after() default "";
 }
