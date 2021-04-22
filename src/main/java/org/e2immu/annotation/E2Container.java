@@ -19,28 +19,39 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Short-hand for the combination of {@link E2Immutable} and {@link Container}.
+ * It indicates that the type is effectively or eventually level 2 immutable, and a container at the same time.
+ */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
 public @interface E2Container {
+
+    /**
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
+     *
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
+     *
+     * @return <code>true</code> when switching to contract mode.
+     */
     boolean contract() default false;
 
     /**
+     * Marker for eventual immutability.
+     *
      * @return when the type is effectively immutable, set the empty string.
      * When it is eventually immutable, return a boolean expression of strings from <code>@Mark</code>
      * values on some of the modifying methods of the type. After these have been called, the
      * type will become effectively immutable.
      */
     String after() default "";
-
-    /**
-     * @return when true, the type is E2Immutable after the framework has made all modifications.
-     * This is a short-hand for adding <code>@Only(framework=true) @Mark("framework")</code> on all modifying methods,
-     * and setting <code>after="framework"</code> on this annotation.
-     */
-    /*
-     IMPROVE
-     boolean framework() default false;
-     */
 }

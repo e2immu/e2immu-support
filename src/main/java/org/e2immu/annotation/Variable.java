@@ -20,12 +20,30 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of @Final
+ * Opposite of @Final: this annotation indicates that a field is not effectively or eventually final.
+ * The field can be assigned to during the whole life-cycle of the object.
+ *
+ *
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)
 public @interface Variable {
+
+    /**
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
+     *
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
+     *
+     * @return <code>true</code> when switching to contract mode.
+     */
     boolean contract() default false;
 }

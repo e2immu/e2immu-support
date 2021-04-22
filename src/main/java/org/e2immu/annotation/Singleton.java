@@ -20,10 +20,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to indicate that a class is a singleton: only one instance can be created.
- * The analyser currently implements two methods of verification:
+ * Annotation used to indicate that a class is a <em>singleton</em>: only one instance can be created.
+ * The analyser currently implements two methods of detection of a singleton:
  * <ol>
- *     <li>a precondition on a private static boolean field</li>
+ *     <li>a precondition on a private static boolean field in the constructor</li>
  *     <li>one call from the initializer of a field to a single, private constructor.</li>
  * </ol>
  */
@@ -31,16 +31,20 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Singleton {
     /**
-     * Parameter to mark that the annotation should be absent, or not.
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
      *
-     * @return <code>true</code> when the analyser should not detect this annotation.
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
      */
     boolean absent() default false;
 
     /**
-     * Parameter to mark that the annotation is present, whether detected or not.
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
      *
-     * @return <code>true</code> when this annotation is contracted, present.
+     * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
 }

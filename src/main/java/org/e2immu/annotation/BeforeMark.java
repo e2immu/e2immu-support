@@ -21,14 +21,28 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation computed when an eventually immutable type is guaranteed to be in its _before_ state, i.e., none of the marked methods have been called yet.
- *
- * Opposite of @E1Immutable @E2Immutable as a dynamic type annotation on fields, methods, and parameters.
- * 
+ * <p>
+ * Opposite of {@link E1Immutable} and {@link E2Immutable} as a dynamic type annotation on fields, methods, and parameters.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface BeforeMark {
+
+    /**
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
+     *
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
+     *
+     * @return <code>true</code> when switching to contract mode.
+     */
     boolean contract() default false;
 }

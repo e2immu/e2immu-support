@@ -15,17 +15,21 @@
 package org.e2immu.annotatedapi;
 
 /**
- * A few helper methods used in Annotated API classes.
- *
+ * Helper methods used in Annotated API classes.
+ * These methods are known to the analyser in a hard-wired way; they exist to support
+ * the computation of instance state using companion methods.
  */
 public class AnnotatedAPI {
 
     /**
-     * The method analyser replaces the return value of this method
-     * to a special value that it recognises; it returns true when
-     * the clause in its parameter is present in the current state.
+     * The method analyser replaces the method call <code>isFact(clause)</code>
+     * with the boolean value <code>true</code> when
+     * the clause is present in the current instance state of the object.
      * <p>
-     * The method does NOT return identity; it is not modifying.
+     * This method, hard-wired into the method analyser, is to be used in companion methods, see for example <code>JavaUtil</code>
+     * in the <code>e2immu/annotatedAPI</code> project.
+     * <p>
+     * The method does not return identity; it is not modifying.
      *
      * @param b the clause
      * @return specialised inline method
@@ -36,6 +40,13 @@ public class AnnotatedAPI {
     }
 
     /**
+     * The method analyser replaces the method call <code>isKnown(true)</code>
+     * with a boolean to test if the current instance state is keeping track of clauses that represent
+     * elements added to a collection. It keeps <code>isKnown(false)</code> as is.
+     * <p>
+     * This method, hard-wired into the method analyser, is to be used in companion methods, see for example <code>JavaUtil</code>
+     * in the <code>e2immu/annotatedAPI</code> project.
+     *
      * @param test true when testing, false when generating a clause for the state
      * @return true when absence of information means knowing the negation
      */

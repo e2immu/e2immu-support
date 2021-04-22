@@ -21,15 +21,23 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation indicating that this method or constructor increases the statement time,
- * or allows the execution to be interrupted.
- *
- * Default value is true. Methods can be annotated with @AllowsInterrupt(false) to explicitly
+ * in other words, allows the execution to be interrupted.
+ * <p>
+ * Please see the <em>e2immu manual</em>
+ * for a more in-depth discussion of statement times.
+ * <p>
+ * Default value is true. Methods can be annotated with <code>@AllowsInterrupt(false)</code> to explicitly
  * mark that they do not interrupt.
- *
+ * <p>
  * External methods not annotated will not interrupt.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
 public @interface AllowsInterrupt {
+    /**
+     * Parameter to indicate whether the method allows for interrupts, or not.
+     *
+     * @return <code>true</code> when the method allows for interrupts.
+     */
     boolean value() default true;
 }

@@ -20,20 +20,36 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Implies that no method of this type modifies its parameters.
+ * An annotation on a type (computed on a class, contracted on an interface) that indicates that no method of the type
+ * modifies its parameters.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
 public @interface Container {
+
+    /**
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
+     *
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
+     *
+     * @return <code>true</code> when switching to contract mode.
+     */
     boolean contract() default false;
 
     /**
-     * some containers are used as "builders" for immutable classes.
+     * Some containers are used as "builders" for immutable classes.
      * This parameter shows that there is a build method.
      * <p>
-     * The builds() parameter is currently not read or written; it is used decoratively in tests.
+     * This parameter is currently used in a decorative way only.
      *
      * @return the class for which this container is the builder
      */

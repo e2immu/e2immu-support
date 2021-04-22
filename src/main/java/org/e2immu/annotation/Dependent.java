@@ -21,11 +21,30 @@ import java.lang.annotation.Target;
 
 /**
  * Opposite of @Independent.
+ * <p>
+ * Used on a constructor, it indicates that at least one parameter links to at least one of the fields of the class.
+ * Used on a method, it indicates that the return value of that method links to at least one of the fields of the class.
+ * Whilst defined in terms of parameters, the analyser currently does not compute it for parameters.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
 public @interface Dependent {
+
+    /**
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
+     *
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
+     *
+     * @return <code>true</code> when switching to contract mode.
+     */
     boolean contract() default false;
 }

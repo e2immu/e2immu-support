@@ -20,13 +20,33 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that a field is effectively or eventually final.
+ * Annotation indicating that a field is effectively or eventually final: it is never assigned to
+ * outside constructors or methods only reachable from constructors. In the eventual case, this restriction is
+ * only reached after discarding some modifying methods with the use of a precondition.
+ * <p>
+ * The annotation is implicitly present but is not written when the field is explicitly final
+ * (i.e., it has the <code>final</code> keyword.)
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)
 public @interface Final {
+
+    /**
+     * Parameter to mark that the annotation should be absent, or present.
+     * In verification mode, <code>absent=true</code> means that an error will be raised
+     * if the analyser computes the annotation. In contract mode, it guarantees absence of the annotation.
+     *
+     * @return <code>true</code> when the annotation should be absent (verification mode) or must be absent (contract mode).
+     */
     boolean absent() default false;
 
+    /**
+     * Parameter to set contract mode, even if the annotation occurs in a context
+     * where verification mode is normal. Use <code>contract=true</code>
+     * to override the computation of the analyser.
+     *
+     * @return <code>true</code> when switching to contract mode.
+     */
     boolean contract() default false;
 
     /**
