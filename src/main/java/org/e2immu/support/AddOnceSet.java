@@ -109,7 +109,7 @@ public class AddOnceSet<V> extends Freezable {
      * @throws NullPointerException when the consumer is null
      */
     @NotModified
-    public void visit(@NotNull1 @NotModified @PropagateModification Consumer<V> consumer) {
+    public void forEach(@NotNull1 @NotModified @PropagateModification Consumer<V> consumer) {
         set.keySet().forEach(consumer);
     }
 
@@ -119,7 +119,6 @@ public class AddOnceSet<V> extends Freezable {
      * @return A stream of the elements of the set. The stream will not contain nulls.
      */
     @NotModified
-    @E2Container
     @NotNull1
     public Stream<V> stream() {
         return set.keySet().stream();
