@@ -22,9 +22,12 @@ import java.lang.annotation.Target;
 /**
  * An annotation on a type (computed on a class, contracted on an interface) that indicates that no method of the type
  * modifies its parameters.
+ * <p>
+ * The annotation on a field, parameter or method indicates a dynamic value, typically computed for concrete
+ * implementations of functional interfaces.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 public @interface Container {
 
     /**

@@ -23,6 +23,8 @@ import org.e2immu.annotation.TestMark;
  * Eventually level 2 immutable class, which holds arbitrary values for one field until a final value is written.
  * <p>
  * Note: this class could have been implemented as an extension of {@link Freezable}.
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  *
  * @param <T> The type of the value to hold.
  */

@@ -24,6 +24,8 @@ import java.util.function.Supplier;
  * evaluated yet.
  * <p>
  * Currently there is no means of detecting the @Mark annotation, which is why we have added it as a contract.
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  *
  * @param <T> the container's content type
  */

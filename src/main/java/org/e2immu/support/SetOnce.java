@@ -21,6 +21,8 @@ import java.util.Objects;
 /**
  * Simple example eventually level 2 immutable type which can hold a single value.
  * This value is either not yet set, or set and immutable.
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  *
  * @param <T> The value's type.
  */

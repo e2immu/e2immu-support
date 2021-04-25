@@ -71,6 +71,6 @@ publishing {
 
 task copyToSite(type: Copy) {
     from 'build/docs/javadoc/'
-    into '../e2immu-site/static/e2immu-support-javadoc/'
+    into '../e2immu-site/static/docs/e2immu-support-javadoc/'
     dependsOn(javadoc)
 }

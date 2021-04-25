@@ -71,7 +71,7 @@ public class SetOnceMap<K, V> extends Freezable {
     @Only(before = "frozen")
     @NotNull
     @Modified
-    public V getOrCreate(@NotNull K k, @NotNull @NotModified @PropagateModification Function<K, V> generator) {
+    public V getOrCreate(@NotNull K k, @NotNull1 @NotModified @PropagateModification Function<K, V> generator) {
         ensureNotFrozen();
         V v = map.get(k);
         if (v != null) return v;
@@ -118,7 +118,7 @@ public class SetOnceMap<K, V> extends Freezable {
     @NotModified
     @NotNull
     public V getOrDefault(@NotNull K k, @NotNull V v) {
-        return map.getOrDefault(k, Objects.requireNonNull(v));
+        return Objects.requireNonNull(map.getOrDefault(k, Objects.requireNonNull(v)));
     }
 
     /**
@@ -159,7 +159,6 @@ public class SetOnceMap<K, V> extends Freezable {
      */
     @NotNull1
     @NotModified
-    @E2Container
     public Stream<Map.Entry<K, V>> stream() {
         return map.entrySet().stream();
     }
@@ -172,6 +171,8 @@ public class SetOnceMap<K, V> extends Freezable {
      */
     @Only(before = "frozen")
     public void putAll(SetOnceMap<K, V> setOnceMap) {
+        // NOTE: this line in technically not needed, https://github.com/e2immu/e2immu/issues/49
+        ensureNotFrozen();
         setOnceMap.stream().forEach(e -> put(e.getKey(), e.getValue()));
     }
 

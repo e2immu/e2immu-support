@@ -20,25 +20,27 @@ import org.e2immu.annotation.*;
  * Most simple example of an eventually level 2 immutable type:
  * the object's state marker is the content of the object.
  * The only modification one can make to the object is to transition its state.
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  */
-@E2Container(after = "t")
+@E2Container(after = "isSet")
 public class FlipSwitch {
 
-    @Final(after = "t")
-    private volatile boolean t;
+    @Final(after = "isSet")
+    private volatile boolean isSet;
 
     /**
      * Transition the state from <em>before</em> to <em>after</em>.
      *
      * @throws IllegalStateException when the object was already in the <em>after</em> state
      */
-    @Mark("t")
+    @Mark("isSet")
     public void set() {
         synchronized (this) {
-            if (t) {
+            if (isSet) {
                 throw new IllegalStateException("Already set");
             }
-            t = true;
+            isSet = true;
         }
     }
 
@@ -48,9 +50,9 @@ public class FlipSwitch {
      * @return <code>true</code> when the object is in the <em>after</em> or final state.
      */
     @NotModified
-    @TestMark("t")
+    @TestMark("isSet")
     public boolean isSet() {
-        return t;
+        return isSet;
     }
 
     /**
@@ -59,7 +61,7 @@ public class FlipSwitch {
      * @param other the other object
      * @throws IllegalStateException if the object was already in <em>after</em> or final state
      */
-    @Mark("t") // but conditionally
+    @Mark("isSet") // but conditionally
     @Modified
     public void copy(FlipSwitch other) {
         if (other.isSet()) set();
@@ -72,6 +74,6 @@ public class FlipSwitch {
      */
     @Override
     public String toString() {
-        return "FlipSwitch{" + t + '}';
+        return "FlipSwitch{" + isSet + '}';
     }
 }

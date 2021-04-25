@@ -23,6 +23,8 @@ import java.util.Objects;
  * holds an object of type <code>T</code>.
  * <p>
  * This class is eventually level 2 immutable: once the second stage has been reached, its fields cannot be changed anymore.
+ * <p>
+ * This is an example class! Please extend and modify for your needs.
  *
  * @param <S> type of the <em>before</em> state
  * @param <T> type of the <em>after</em> or final state
