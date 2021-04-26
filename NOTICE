@@ -1,7 +1,7 @@
-e2immu/annotations: annotations and support classes for effective and eventual immutability
+e2immu/e2immu-support: Annotations and support classes for effective and eventual immutability.
 Copyright 2020-2021, Bart Naudts, https://www.e2immu.org
 
-Licensed under the Gnu Lesser General Public Licenses, version 3
+Licensed under the Gnu Lesser General Public Licenses, version 3.
 
 
 
