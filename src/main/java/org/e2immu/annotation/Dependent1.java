@@ -20,8 +20,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to indicate <em>content linking</em>: a parameter  of implicitly immutable type is assigned
- * to a field; or an implicitly immutable part of the object graph of a field is returned by a method.
+ * Annotation to indicate <em>content linking</em>: a parameter of implicitly immutable type is assigned
+ * to a field or to part of the object graph of a field;
+ * or an implicitly immutable part of the object graph of a field is returned by a method.
  * <p>
  * The annotation implies {@link Independent}.
  */

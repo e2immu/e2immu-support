@@ -20,15 +20,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to indicate that modifications on a field can be ignored.
+ * Annotation used to indicate that modifications on a field or parameter can be ignored.
  * The simple use case is <code>System.out</code>, where <code>println</code> is a modifying
  * method. To your application, however, this may not count as a modification but rather
  * as an action external to the system.
  * <p>
+ * The use case for parameters is a <code>forEach</code> method which takes a consumer as a
+ * parameter. Modifications inside the implementation of the <code>accept</code> method of the
+ * consumer should typically not prevent the type of the <code>forEach</code> method to become a container.
+ * <p>
  * This annotation is always contracted, never computed.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 public @interface IgnoreModifications {
     // contract: true, absent: false
 }

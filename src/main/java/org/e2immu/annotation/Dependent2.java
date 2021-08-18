@@ -21,7 +21,9 @@ import java.lang.annotation.Target;
 
 /**
  * The annotation indicates that part of the implicitly immutable content of this parameter (or method result)
- * content links to the implicitly immutable content of the fields. It acts like an "aggregate" version of {@link Dependent1}.
+ * content links to the implicitly immutable content of the fields.
+ * The difference with {@link Dependent1} is that the implicitly immutable content is associated with the parameter
+ * or the method result via a modifying method call or newly constructed object to which the data has been passed.
  * <p>
  * The annotation implies {@link Independent}.
  */

@@ -25,6 +25,11 @@ import java.lang.annotation.Target;
  * <p>
  * The annotation on a field, parameter or method indicates a dynamic value, typically computed for concrete
  * implementations of functional interfaces.
+ * <p>
+ * The annotation can be contracted on a parameter to indicate that all implementations of the (abstract) type
+ * must be containers themselves. This is particularly useful for functional interfaces, where the annotation will
+ * enforce that implementations are not parameter-modifying.
+ *
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
