@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 @E2Container(after = "t")
 public class Lazy<T> {
     @NotNull1
-    @Dependent2 // the content of supplier is assigned to the field 't'
+    @Dependent1 // the content of supplier is assigned to the field 't'
     private final Supplier<T> supplier;
 
     @Final(after = "t")
@@ -43,7 +43,7 @@ public class Lazy<T> {
      * @param supplierParam the supplier that will compute the value; it should not produce a null value
      * @throws NullPointerException when the argument is <code>null</code>
      */
-    public Lazy(@NotNull1 @Dependent2 Supplier<T> supplierParam) {
+    public Lazy(@NotNull1 @Dependent1 Supplier<T> supplierParam) {
         if (supplierParam == null) throw new NullPointerException("Null not allowed");
         this.supplier = supplierParam;
     }
@@ -59,7 +59,7 @@ public class Lazy<T> {
     @Mark(value = "t")
     public T get() {
         if (t != null) return t;
-        t = Objects.requireNonNull(supplier.get()); // this statement causes @NotNull1 and @Dependent2 on supplier
+        t = Objects.requireNonNull(supplier.get()); // this statement causes @NotNull1 and @Dependent1 on supplier
         return t;
     }
 

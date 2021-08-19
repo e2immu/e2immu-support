@@ -22,8 +22,7 @@ import java.lang.annotation.Target;
 /**
  * Content not null, one level up from not null.
  * <p>
- * Note that a field, method or parameter cannot hold more than one of {@link NotNull}, {@link NotNull1}
- * or {@link NotNull2} at the same time.
+ * Note that a field, method or parameter cannot {@link NotNull} and {@link NotNull1} at the same time.
  */
 
 @Retention(RetentionPolicy.CLASS)

@@ -109,7 +109,7 @@ public class AddOnceSet<V> extends Freezable {
      * @throws NullPointerException when the consumer is null
      */
     @NotModified
-    public void forEach(@NotNull1 @NotModified @Dependent2 Consumer<V> consumer) {
+    public void forEach(@NotNull1 @Dependent1 Consumer<V> consumer) {
         set.keySet().forEach(consumer);
     }
 
