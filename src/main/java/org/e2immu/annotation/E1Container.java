@@ -55,4 +55,14 @@ public @interface E1Container {
      * type will become effectively level 1 immutable.
      */
     String after() default "";
+
+    /**
+     * Some containers are used as "builders" for immutable classes.
+     * This parameter shows that there is a build method.
+     * <p>
+     * This parameter is currently used in a decorative way only.
+     *
+     * @return the class for which this container is the builder
+     */
+    Class<?> builds() default Object.class;
 }
