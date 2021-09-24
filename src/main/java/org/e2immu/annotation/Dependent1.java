@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * The annotation implies {@link Independent}.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 public @interface Dependent1 {
 
     /**

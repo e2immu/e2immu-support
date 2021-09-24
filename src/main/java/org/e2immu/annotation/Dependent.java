@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * Whilst defined in terms of parameters, the analyser currently does not compute it for parameters.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
 public @interface Dependent {
 
     /**
