@@ -47,4 +47,6 @@ public @interface Dependent1 {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    int level() default 1;
 }

@@ -16,7 +16,7 @@ package org.e2immu.annotatedapi;
 
 /**
  * Helper methods used in Annotated API classes.
- * These methods are known to the analyser in a hard-wired way; they exist to support
+ * These methods are known to the analys er in a hard-wired way; they exist to support
  * the computation of instance state using companion methods.
  */
 public class AnnotatedAPI {

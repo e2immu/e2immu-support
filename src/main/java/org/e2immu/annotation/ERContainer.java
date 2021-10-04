@@ -20,12 +20,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Short-hand for the combination of {@link E2Immutable} and {@link Container}.
- * It indicates that the type is effectively or eventually level 2 immutable, and a container at the same time.
+ * Short-hand for the combination of {@link E1Immutable} and {@link Container}.
+ * It indicates that the type is effectively or eventually level 1 immutable (all fields are (eventually) {@link Final}),
+ * and the type is a container.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
-public @interface E2Container {
+public @interface ERContainer {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -48,12 +49,20 @@ public @interface E2Container {
     /**
      * Marker for eventual immutability.
      *
-     * @return when the type is effectively immutable, set the empty string.
-     * When it is eventually immutable, return a boolean expression of strings from <code>@Mark</code>
+     * @return when the type is effectively level 1 immutable, set the empty string.
+     * When it is eventually level 1 immutable, return a comma-separated list of strings from <code>@Mark</code>
      * values on some of the modifying methods of the type. After these have been called, the
-     * type will become effectively immutable.
+     * type will become effectively level 1 immutable.
      */
     String after() default "";
 
-    int level() default 2;
+    /**
+     * Some containers are used as "builders" for immutable classes.
+     * This parameter shows that there is a build method.
+     * <p>
+     * This parameter is currently used in a decorative way only.
+     *
+     * @return the class for which this container is the builder
+     */
+    Class<?> builds() default Object.class;
 }

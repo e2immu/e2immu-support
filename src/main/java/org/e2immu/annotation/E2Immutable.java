@@ -55,4 +55,8 @@ public @interface E2Immutable {
      * type will become effectively immutable.
      */
     String after() default "";
+
+    int level() default 2;
+
+    boolean recursive() default false;
 }
