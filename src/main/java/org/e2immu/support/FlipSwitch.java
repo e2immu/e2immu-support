@@ -23,7 +23,7 @@ import org.e2immu.annotation.*;
  * <p>
  * This is an example class! Please extend and modify for your needs.
  */
-@E2Container(after = "isSet")
+@ERContainer(after = "isSet")
 public class FlipSwitch {
 
     @Final(after = "isSet")

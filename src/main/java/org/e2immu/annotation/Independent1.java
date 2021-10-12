@@ -28,7 +28,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
-public @interface Dependent1 {
+public @interface Independent1 {
+
+    int level() default 1;
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -47,6 +49,4 @@ public @interface Dependent1 {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    int level() default 1;
 }

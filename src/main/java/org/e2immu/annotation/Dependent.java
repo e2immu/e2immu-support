@@ -20,11 +20,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of @Independent.
+ * Opposite of @Independent, @Independent1.
  * <p>
- * Used on a constructor, it indicates that at least one parameter links to at least one of the fields of the class.
+ * Used on a parameter, it indicates that at this parameter links to at least one of the fields of the class.
  * Used on a method, it indicates that the return value of that method links to at least one of the fields of the class.
- * Whilst defined in terms of parameters, the analyser currently does not compute it for parameters.
+ * On a type, the annotation shows that the type does not follow the rules of independence of a type;
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})

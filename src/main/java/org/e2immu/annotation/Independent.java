@@ -20,20 +20,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that
- * <ul>
- *     <li>
- *         On a non-modifying method, the return value does not link to the fields;
- *     </li>
- *     <li>
- *         on a constructor, none of the parameters link to any of the fields.
- *     </li>
- * </ul>
- * The linking here concerns all fields of non-implicitly immutable type.
+ * Annotation indicating that a parameter or return value of a method is independent of the
+ * fields of the type: there is no linking or hidden content linking between the parameter or
+ * return value, and any field of the type.
+ * On a type, the annotation indicates that it follows the rules of independence of types.
+ * <p>
+ * On a type parameter in AnnotatedAPIs, the annotation indicates that the type parameter is NOT part
+ * of the hidden content. If it is not part of the hidden content, it cannot be used to increase the
+ * immutability level.
  */
 
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER,
+        ElementType.TYPE_PARAMETER})
 public @interface Independent {
 
     /**
