@@ -29,6 +29,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
 public @interface Dependent {
+    /**
+     * used to mark a dependence on other parameters
+     *
+     * @return the parameters, starting from 0
+     */
+    int[] parameters() default {};
 
     /**
      * Parameter to mark that the annotation should be absent, or present.

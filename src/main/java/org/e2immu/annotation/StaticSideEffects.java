@@ -20,25 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to indicate <em>content linking</em>: a parameter of implicitly immutable type is assigned
- * to a field or to part of the object graph of a field;
- * or an implicitly immutable part of the object graph of a field is returned by a method.
- * <p>
- * The annotation implies {@link Independent}.
+ * Annotation used to indicate that a type has at least one method which calls a modifying method
+ * on a static field foreign to the type.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
-public @interface Independent1 {
-
-    /**
-     * used to mark a dependence on other parameters
-     *
-     * @return the parameters, starting from 0
-     */
-    int[] parameters() default {};
-
-    int level() default 1;
-
+@Target({ElementType.TYPE})
+public @interface StaticSideEffects {
     /**
      * Parameter to mark that the annotation should be absent, or present.
      * In verification mode, <code>absent=true</code> means that an error will be raised

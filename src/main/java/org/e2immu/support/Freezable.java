@@ -14,6 +14,7 @@
 
 package org.e2immu.support;
 
+import org.e2immu.annotation.ERContainer;
 import org.e2immu.annotation.Final;
 import org.e2immu.annotation.Mark;
 import org.e2immu.annotation.TestMark;
@@ -32,6 +33,7 @@ import org.e2immu.annotation.TestMark;
  * This is an example class! Please extend and modify for your needs.
  */
 
+@ERContainer(after = "frozen")
 public abstract class Freezable {
 
     @Final(after = "frozen")

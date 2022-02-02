@@ -39,7 +39,7 @@ test {
 
 dependencies {
     // TEST
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0' // EPL v2
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2' // EPL v2
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
