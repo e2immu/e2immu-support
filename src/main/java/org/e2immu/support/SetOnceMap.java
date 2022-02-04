@@ -71,7 +71,7 @@ public class SetOnceMap<K, V> extends Freezable {
     @Only(before = "frozen")
     @NotNull
     @Modified
-    public V getOrCreate(@NotNull K k, @NotNull1 @NotModified Function<K, V> generator) {
+    public V getOrCreate(@NotNull K k, @Container(contract = true) @NotNull1 Function<K, V> generator) {
         ensureNotFrozen();
         V v = map.get(k);
         if (v != null) return v;
