@@ -185,7 +185,7 @@ public class SetOnceMap<K, V> extends Freezable {
      */
     @NotNull
     @NotModified
-    @E2Container
+    @E2Container(after = "frozen")
     public Map<K, V> toImmutableMap() {
         return Map.copyOf(map);
     }

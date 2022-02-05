@@ -131,7 +131,7 @@ public class AddOnceSet<V> extends Freezable {
      */
     @NotModified
     @NotNull1
-    @E2Container
+    @E2Container(after = "frozen")
     public Set<V> toImmutableSet() {
         return Set.copyOf(set.keySet());
     }
