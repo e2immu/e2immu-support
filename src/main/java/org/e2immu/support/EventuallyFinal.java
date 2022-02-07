@@ -28,7 +28,7 @@ import org.e2immu.annotation.TestMark;
  *
  * @param <T> The type of the value to hold.
  */
-@E2Container(after = "isFinal,value")
+@E2Container(after = "isFinal")
 public class EventuallyFinal<T> {
     private T value;
     private boolean isFinal;
