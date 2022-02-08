@@ -110,7 +110,7 @@ public class VariableFirstThen<S, T> {
     }
 
     public S getFirstOrDefault(S defaultValue) {
-        if(isFirst()) return getFirst();
+        if (isFirst()) return getFirst();
         return defaultValue;
     }
 
@@ -162,5 +162,10 @@ public class VariableFirstThen<S, T> {
     @NotModified
     public int hashCode() {
         return Objects.hash(first, then);
+    }
+
+    @Override
+    public String toString() {
+        return isSet() ? then.toString() : first.toString();
     }
 }
