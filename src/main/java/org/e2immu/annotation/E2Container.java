@@ -56,4 +56,13 @@ public @interface E2Container {
     String after() default "";
 
     int level() default 2;
+
+    /**
+     * If present with value <code>true</code>, the decision-making process of this annotation was
+     * not conclusive.
+     *
+     * @return <code>true</code> when the decision-making process was cut short, and this value was chosen based
+     * on incomplete information.
+     */
+    boolean inconclusive() default false;
 }

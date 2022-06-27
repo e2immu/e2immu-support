@@ -49,8 +49,17 @@ public @interface E1Immutable {
      *
      * @return when the type is effectively level 1 immutable, set the empty string.
      * When it is eventually level 1 immutable, return a comma-separated list of strings from <code>@Mark</code>
-     * values on some of the modifying methods of the type. After these have been called, the
+     * values on some modifying methods of the type. After these have been called, the
      * type will become effectively level 1 immutable.
      */
     String after() default "";
+
+    /**
+     * If present with value <code>true</code>, the decision-making process of this annotation was
+     * not conclusive.
+     *
+     * @return <code>true</code> when the decision-making process was cut short, and this value was chosen based
+     * on incomplete information.
+     */
+    boolean inconclusive() default false;
 }
