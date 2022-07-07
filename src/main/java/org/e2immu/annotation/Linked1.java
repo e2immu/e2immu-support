@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * both available on <a href="https://www.e2immu.org">the <em>e2immu</em> website.</a>.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.FIELD})
 public @interface Linked1 {
 
     /**
