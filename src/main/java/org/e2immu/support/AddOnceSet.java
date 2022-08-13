@@ -36,7 +36,7 @@ import java.util.stream.Stream;
  *
  * @param <V> The type of elements held by the set.
  */
-@E2Container(after = "frozen")
+@ImmutableContainer(after = "frozen")
 public class AddOnceSet<V> extends Freezable {
 
     private final Map<V, V> set = new HashMap<>();
@@ -109,7 +109,7 @@ public class AddOnceSet<V> extends Freezable {
      * @throws NullPointerException when the consumer is null
      */
     @NotModified
-    public void forEach(@NotNull1 @Independent1 Consumer<V> consumer) {
+    public void forEach(@NotNull1 @NotLinked Consumer<V> consumer) {
         set.keySet().forEach(consumer);
     }
 
@@ -131,7 +131,7 @@ public class AddOnceSet<V> extends Freezable {
      */
     @NotModified
     @NotNull1
-    @E2Container
+    @ImmutableContainer
     public Set<V> toImmutableSet() {
         return Set.copyOf(set.keySet());
     }

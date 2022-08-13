@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  * @param <T> The value's type.
  */
-@E2Container(after = "t")
+@ImmutableContainer(after = "t")
 public class SetOnce<T> {
 
     @Final(after = "t")

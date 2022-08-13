@@ -23,8 +23,9 @@ import org.e2immu.annotation.*;
  * <p>
  * This is an example class! Please extend and modify for your needs.
  */
-@ERContainer(after = "isSet")
-public class FlipSwitch {
+@Constant(after = "isSet")
+@Container
+public final class FlipSwitch {
 
     @Final(after = "isSet")
     private volatile boolean isSet;

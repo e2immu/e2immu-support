@@ -30,7 +30,7 @@ import java.util.Objects;
  * @param <T> type of the <em>after</em> or final state
  */
 
-@E2Container(after = "first")
+@ImmutableContainer(after = "first")
 public class VariableFirstThen<S, T> {
     @Final(after = "first")
     private volatile S first;

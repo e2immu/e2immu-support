@@ -20,11 +20,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation marking that the type is effectively or eventually level 1 immutable: all fields are (eventually) {@link Final}.
+ * Annotation indicating that the type is effectively or eventually immutable: its fields are {@link Final},
+ * its fields are {@link NotModified}, its fields either private or 2 immutable themselves,
+ * and non-private methods and constructors are {@link Independent} or {@link NotLinked}.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-public @interface E1Immutable {
+public @interface Immutable {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -47,10 +49,10 @@ public @interface E1Immutable {
     /**
      * Marker for eventual immutability.
      *
-     * @return when the type is effectively level 1 immutable, set the empty string.
-     * When it is eventually level 1 immutable, return a comma-separated list of strings from <code>@Mark</code>
-     * values on some modifying methods of the type. After these have been called, the
-     * type will become effectively level 1 immutable.
+     * @return when the type is effectively immutable, set the empty string.
+     * When it is eventually immutable, return a boolean expression of strings from <code>@Mark</code>
+     * values on some of the modifying methods of the type. After these have been called, the
+     * type will become effectively immutable.
      */
     String after() default "";
 

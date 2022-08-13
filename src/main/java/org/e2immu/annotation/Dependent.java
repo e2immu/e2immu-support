@@ -20,11 +20,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Opposite of @Independent, @Independent1.
+ * A modification to this parameter or method result implies a modification to the fields of the type.
  * <p>
- * Used on a parameter, it indicates that at this parameter links to at least one of the fields of the class.
- * Used on a method, it indicates that the return value of that method links to at least one of the fields of the class.
- * On a type, the annotation shows that the type does not follow the rules of independence of a type;
+ * Used on a parameter, it indicates that at this parameter links to at least one of the fields of the class in a dependent way.
+ * Used on a method, it indicates that the return value of that method links to at least one of the fields of the class in a dependent way.
+ * On a type, the annotation shows that the type does not follow the rules of independence of a type.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
@@ -62,4 +62,11 @@ public @interface Dependent {
      * on incomplete information.
      */
     boolean inconclusive() default false;
+
+    /**
+     * Explanatory parameter indicating which parameters a field links to.
+     *
+     * @return a string representation of each of the parameters a field links to.
+     */
+    String[] to() default "";
 }

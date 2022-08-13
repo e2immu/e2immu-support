@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation computed when an eventually immutable type is guaranteed to be in its _before_ state, i.e., none of the marked methods have been called yet.
  * <p>
- * Opposite of {@link E1Immutable} and {@link E2Immutable} as a dynamic type annotation on fields, methods, and parameters.
+ * Opposite of {@link FinalFields} and {@link Immutable} as a dynamic type annotation on fields, methods, and parameters.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})

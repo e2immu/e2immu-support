@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
  * Annotation indicating that a type is an <em>extension class</em> of another type <code>E</code>.
  * The following criteria are used:
  * <ol>
- * <li>the class is level 2 immutable;</li>
+ * <li>the class is immutable or constant;</li>
  * <li>all non-private static methods with parameters (and there must be at least one) must have a 1st parameter:
  * <ol>
  *     <li>of type <code>E</code>, the type being extended,</li>
@@ -32,8 +32,8 @@ import java.lang.annotation.Target;
  * <li>non-private static methods without parameters must return a value of type <code>E</code>, and must
  * also be {@link NotNull}.</li>
  * </ol>
- * Extension classes will often not be {@link Container}, because modification of the first parameter
- * is pretty likely.
+ * Extension classes will often not be {@link Container}, because a modification of the first parameter
+ * is pretty common.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE})

@@ -14,7 +14,7 @@
 
 package org.e2immu.support;
 
-import org.e2immu.annotation.E2Container;
+import org.e2immu.annotation.ImmutableContainer;
 import org.e2immu.annotation.NotModified;
 import org.e2immu.annotation.NotNull;
 import org.e2immu.annotation.Nullable;
@@ -22,10 +22,10 @@ import org.e2immu.annotation.Nullable;
 import java.util.Objects;
 
 /**
- * An class holding either an object of type <code>A</code>, or one of type <code>B</code>; it cannot hold both,
+ * A class holding either an object of type <code>A</code>, or one of type <code>B</code>; it cannot hold both,
  * nor can it hold neither.
  * <p>
- * <code>Either</code> is level 2 immutable, because its fields are explicitly final, and of implicit immutable
+ * <code>Either</code> is immutable, because its fields are explicitly final, and of implicitly immutable
  * type (unbound parameter type).
  * <p>
  * This is an example class! Please extend and modify for your needs.
@@ -33,7 +33,7 @@ import java.util.Objects;
  * @param <A> The type of the left object.
  * @param <B> The type fo the right object.
  */
-@E2Container
+@ImmutableContainer
 public class Either<A, B> {
 
     // contracted, because getLeft and getRight cause exceptions

@@ -20,11 +20,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to indicate that a type has at least one method which calls a modifying method
- * on a static field foreign to the type.
+ * Annotation used to indicate on a method, that this method calls a modifying method on a static field of foreign type,
+ * on a type, that a type has at least one method with static side effects.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE})
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface StaticSideEffects {
     /**
      * Parameter to mark that the annotation should be absent, or present.

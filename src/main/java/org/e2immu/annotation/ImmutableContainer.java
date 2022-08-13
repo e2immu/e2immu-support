@@ -20,24 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to indicate <em>content linking</em>: a parameter of implicitly immutable type is assigned
- * to a field or to part of the object graph of a field;
- * or an implicitly immutable part of the object graph of a field is returned by a method.
- * <p>
- * The annotation implies {@link Independent}.
+ * Shorthand for the combination of {@link Immutable} and {@link Container}.
+ * It indicates that the type is effectively or eventually immutable, and a container at the same time.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
-public @interface Independent1 {
-
-    /**
-     * used to mark a dependence on other parameters
-     *
-     * @return the parameters, starting from 0
-     */
-    int[] parameters() default {};
-
-    int level() default 1;
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
+public @interface ImmutableContainer {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -56,6 +44,16 @@ public @interface Independent1 {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * Marker for eventual immutability.
+     *
+     * @return when the type is effectively immutable, set the empty string.
+     * When it is eventually immutable, return a boolean expression of strings from <code>@Mark</code>
+     * values on some modifying methods of the type. After these have been called, the
+     * type will become effectively immutable.
+     */
+    String after() default "";
 
     /**
      * If present with value <code>true</code>, the decision-making process of this annotation was

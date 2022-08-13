@@ -20,13 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that the type is effectively or eventually level 2 immutable: it is {@link E1Immutable},
- * all its fields are {@link NotModified}, fields of non-implicitly immutable type are either private or level 2 immutable
- * themselves, and non-private methods and constructors are {@link Independent}.
+ * Shorthand for the combination of {@link Constant} and {@link Container}.
+ * It indicates that the type is effectively constant, and the type is a container.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-public @interface E2Immutable {
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
+public @interface ConstantContainer {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -49,16 +48,12 @@ public @interface E2Immutable {
     /**
      * Marker for eventual immutability.
      *
-     * @return when the type is effectively immutable, set the empty string.
-     * When it is eventually immutable, return a boolean expression of strings from <code>@Mark</code>
-     * values on some of the modifying methods of the type. After these have been called, the
-     * type will become effectively immutable.
+     * @return when the type is effectively level 1 immutable, set the empty string.
+     * When it is eventually level 1 immutable, return a comma-separated list of strings from <code>@Mark</code>
+     * values on some modifying methods of the type. After these have been called, the
+     * type will become effectively level 1 immutable.
      */
     String after() default "";
-
-    int level() default 2;
-
-    boolean recursive() default false;
 
     /**
      * If present with value <code>true</code>, the decision-making process of this annotation was

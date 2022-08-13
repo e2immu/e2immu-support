@@ -20,13 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Short-hand for the combination of {@link E1Immutable} and {@link Container}.
- * It indicates that the type is effectively or eventually level 1 immutable (all fields are (eventually) {@link Final}),
- * and the type is a container.
+ * Annotation marking that the type's fields are effectively or eventually {@link Final}.
+ * Java record types are always (effectively) {@link FinalFields}.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
-public @interface ERContainer {
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+public @interface FinalFields {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -49,22 +48,12 @@ public @interface ERContainer {
     /**
      * Marker for eventual immutability.
      *
-     * @return when the type is effectively level 1 immutable, set the empty string.
-     * When it is eventually level 1 immutable, return a comma-separated list of strings from <code>@Mark</code>
+     * @return when the type is effectively {@link FinalFields}, set the empty string.
+     * When it is eventually so, return a comma-separated list of strings from <code>@Mark</code>
      * values on some modifying methods of the type. After these have been called, the
-     * type will become effectively level 1 immutable.
+     * type will become effectively {@link FinalFields}.
      */
     String after() default "";
-
-    /**
-     * Some containers are used as "builders" for immutable classes.
-     * This parameter shows that there is a build method.
-     * <p>
-     * This parameter is currently used in a decorative way only.
-     *
-     * @return the class for which this container is the builder
-     */
-    Class<?> builds() default Object.class;
 
     /**
      * If present with value <code>true</code>, the decision-making process of this annotation was

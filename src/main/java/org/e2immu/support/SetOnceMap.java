@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  * @param <K> The type for keys.
  * @param <V> The type for values.
  */
-@E2Container(after = "frozen")
+@ImmutableContainer(after = "frozen")
 public class SetOnceMap<K, V> extends Freezable {
 
     private final Map<K, V> map = new HashMap<>();
@@ -185,7 +185,7 @@ public class SetOnceMap<K, V> extends Freezable {
      */
     @NotNull
     @NotModified
-    @E2Container
+    @ImmutableContainer
     public Map<K, V> toImmutableMap() {
         return Map.copyOf(map);
     }

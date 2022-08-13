@@ -21,13 +21,13 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to indicate that field has been assigned, or a method returns, a constant value.
- * Note that level 2 immutable classes whose fields have constant values, are also considered constant.
- * In this way, complex constant constructs can be built.
+ * Note that immutable, non-extensible (i.e. final, sealed) classes whose fields are constant, are also considered constant.
+ * In this way, complex constant constructs can be built, opening up the type for eventuality as well.
  * <p>
- * Mostly used to debug the analyser.
+ * Constants are immutable types without hidden content.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE})
 public @interface Constant {
 
     /**
@@ -47,6 +47,16 @@ public @interface Constant {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * Marker for eventual immutability.
+     *
+     * @return when the type is effectively immutable, set the empty string.
+     * When it is eventually immutable, return a boolean expression of strings from <code>@Mark</code>
+     * values on some of the modifying methods of the type. After these have been called, the
+     * type will become effectively immutable.
+     */
+    String after() default "";
 
     /**
      * A string representation of the constant value.

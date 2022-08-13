@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  * @param <T> the container's content type
  */
 
-@E2Container(after = "t")
+@ImmutableContainer(after = "t")
 public class Lazy<T> {
     private final Supplier<T> supplier;
 
@@ -57,7 +57,7 @@ public class Lazy<T> {
     @Mark(value = "t")
     public T get() {
         if (t != null) return t;
-        t = Objects.requireNonNull(supplier.get()); // this statement causes @NotNull1 and @Dependent1 on supplier
+        t = Objects.requireNonNull(supplier.get()); // this statement causes @NotNull1 and @Independent on supplier
         return t;
     }
 

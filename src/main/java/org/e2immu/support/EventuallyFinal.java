@@ -14,13 +14,13 @@
 
 package org.e2immu.support;
 
-import org.e2immu.annotation.E2Container;
+import org.e2immu.annotation.ImmutableContainer;
 import org.e2immu.annotation.Mark;
 import org.e2immu.annotation.Only;
 import org.e2immu.annotation.TestMark;
 
 /**
- * Eventually level 2 immutable class, which holds arbitrary values for one field until a final value is written.
+ * Eventually immutable class, which holds arbitrary values for one field until a final value is written.
  * <p>
  * Note: this class could have been implemented as an extension of {@link Freezable}.
  * <p>
@@ -28,7 +28,7 @@ import org.e2immu.annotation.TestMark;
  *
  * @param <T> The type of the value to hold.
  */
-@E2Container(after = "isFinal")
+@ImmutableContainer(after = "isFinal")
 public class EventuallyFinal<T> {
     private T value;
     private boolean isFinal;
