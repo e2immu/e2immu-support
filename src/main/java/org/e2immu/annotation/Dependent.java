@@ -62,11 +62,4 @@ public @interface Dependent {
      * on incomplete information.
      */
     boolean inconclusive() default false;
-
-    /**
-     * Explanatory parameter indicating which parameters a field links to.
-     *
-     * @return a string representation of each of the parameters a field links to.
-     */
-    String[] to() default "";
 }

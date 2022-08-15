@@ -63,4 +63,11 @@ public @interface ConstantContainer {
      * on incomplete information.
      */
     boolean inconclusive() default false;
+
+    /**
+     * A string representation of the constant value.
+     *
+     * @return A string representation of the constant value.
+     */
+    String value() default "";
 }
