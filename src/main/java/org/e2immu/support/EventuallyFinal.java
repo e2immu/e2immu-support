@@ -15,9 +15,9 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.ImmutableContainer;
-import org.e2immu.annotation.Mark;
-import org.e2immu.annotation.Only;
-import org.e2immu.annotation.TestMark;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.Only;
+import org.e2immu.annotation.eventual.TestMark;
 
 /**
  * Eventually immutable class, which holds arbitrary values for one field until a final value is written.
@@ -28,7 +28,7 @@ import org.e2immu.annotation.TestMark;
  *
  * @param <T> The type of the value to hold.
  */
-@ImmutableContainer(after = "isFinal")
+@ImmutableContainer(after = "isFinal", hc = true)
 public class EventuallyFinal<T> {
     private T value;
     private boolean isFinal;

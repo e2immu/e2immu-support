@@ -25,8 +25,12 @@ import java.lang.annotation.Target;
  * On a parameter, the annotation indicates that it is illegal to pass <code>null</code> as an argument,
  * illegal meaning that an exception is guaranteed to be raised.
  * <p>
- * Note that a field, method or parameter cannot hold more than one of
- * {@link NotNull}, {@link NotNull1} or {@link NotNull2} at the same time.
+ * When <code>content</code> parameter is true, the annotation indicates that the content of the object is not null.
+ * This means that
+ * <ul>
+ *     <li>if the value is iterable, its elements are not null (array, collection, etc.)</li>
+ *     <li>if the value is a functional interface, its return value is not null</li>
+ * </ul>
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
@@ -49,4 +53,6 @@ public @interface NotNull {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    boolean content() default false;
 }

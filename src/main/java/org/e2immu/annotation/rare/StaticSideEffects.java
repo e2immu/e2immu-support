@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.rare;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,22 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to indicate <em>absence of linking</em>. Only assignment or transfer at {@link Constant} level
- * is allowed.
+ * Annotation used to indicate on a method, that this method calls a modifying method on a static field of foreign type,
+ * on a type, that a type has at least one method with static side effects.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
-public @interface NotLinked {
-
-    /**
-     * used to mark a dependence on other parameters
-     *
-     * @return the parameters, starting from 0
-     */
-    int[] parameters() default {};
-
-    int level() default 1;
-
+@Target({ElementType.TYPE, ElementType.METHOD})
+public @interface StaticSideEffects {
     /**
      * Parameter to mark that the annotation should be absent, or present.
      * In verification mode, <code>absent=true</code> means that an error will be raised
@@ -53,13 +43,4 @@ public @interface NotLinked {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * If present with value <code>true</code>, the decision-making process of this annotation was
-     * not conclusive.
-     *
-     * @return <code>true</code> when the decision-making process was cut short, and this value was chosen based
-     * on incomplete information.
-     */
-    boolean inconclusive() default false;
 }

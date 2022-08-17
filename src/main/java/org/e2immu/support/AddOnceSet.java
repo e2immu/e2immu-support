@@ -15,6 +15,7 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Only;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ import java.util.stream.Stream;
  *
  * @param <V> The type of elements held by the set.
  */
-@ImmutableContainer(after = "frozen")
+@ImmutableContainer(after = "frozen", hc = true)
 public class AddOnceSet<V> extends Freezable {
 
     private final Map<V, V> set = new HashMap<>();
@@ -109,7 +110,7 @@ public class AddOnceSet<V> extends Freezable {
      * @throws NullPointerException when the consumer is null
      */
     @NotModified
-    public void forEach(@NotNull1 @NotLinked Consumer<V> consumer) {
+    public void forEach(@NotNull(content = true) @Independent(hc = true) Consumer<V> consumer) {
         set.keySet().forEach(consumer);
     }
 
@@ -119,7 +120,7 @@ public class AddOnceSet<V> extends Freezable {
      * @return A stream of the elements of the set. The stream will not contain nulls.
      */
     @NotModified
-    @NotNull1
+    @NotNull(content = true)
     public Stream<V> stream() {
         return set.keySet().stream();
     }
@@ -130,7 +131,7 @@ public class AddOnceSet<V> extends Freezable {
      * @return a level 2 immutable copy of the underlying set.
      */
     @NotModified
-    @NotNull1
+    @NotNull(content = true)
     @ImmutableContainer
     public Set<V> toImmutableSet() {
         return Set.copyOf(set.keySet());

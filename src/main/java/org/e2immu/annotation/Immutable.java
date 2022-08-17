@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation indicating that the type is effectively or eventually immutable: its fields are {@link Final},
  * its fields are {@link NotModified}, its fields either private or 2 immutable themselves,
- * and non-private methods and constructors are {@link Independent} or {@link NotLinked}.
+ * and non-private methods and constructors are {@link Transfer} or {@link Independent}.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
@@ -64,4 +64,10 @@ public @interface Immutable {
      * on incomplete information.
      */
     boolean inconclusive() default false;
+
+    /**
+     * hidden content
+     * @return true when the type has hidden content, i.e., it is not deeply or recursively immutable.
+     */
+    boolean hc() default false;
 }

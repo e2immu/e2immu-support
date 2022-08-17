@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.eventual;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,12 +20,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to indicate on a method, that this method calls a modifying method on a static field of foreign type,
- * on a type, that a type has at least one method with static side effects.
+ * Annotation indicating that this modifying method transitions an eventually immutable object from the <em>before</em>
+ * state to the <em>after</em> state.
+ * <p>
+ * The annotation is computed on the basis of its precondition, and assignment or modification afterwards, which breaks
+ * this condition.
+ * <p>
+ * The contracted form of this annotation is currently not implemented, but it will be in the near future
+ * (https://github.com/e2immu/e2immu/issues/48)
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.METHOD})
-public @interface StaticSideEffects {
+@Target({ElementType.METHOD, ElementType.PARAMETER})
+public @interface Mark {
+
     /**
      * Parameter to mark that the annotation should be absent, or present.
      * In verification mode, <code>absent=true</code> means that an error will be raised
@@ -43,4 +50,12 @@ public @interface StaticSideEffects {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * The name of the mark, which currently is computed as the comma-separated value of the fields
+     * involved in the precondition that decides on eventual immutability.
+     *
+     * @return The name of the mark.
+     */
+    String value();
 }

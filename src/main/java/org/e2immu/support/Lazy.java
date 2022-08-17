@@ -15,6 +15,8 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.TestMark;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -28,7 +30,7 @@ import java.util.function.Supplier;
  * @param <T> the container's content type
  */
 
-@ImmutableContainer(after = "t")
+@ImmutableContainer(after = "t", hc = true)
 public class Lazy<T> {
     private final Supplier<T> supplier;
 

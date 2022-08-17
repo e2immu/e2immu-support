@@ -15,6 +15,8 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.TestMark;
 
 /**
  * Most simple example of an eventually level 2 immutable type:
@@ -23,8 +25,7 @@ import org.e2immu.annotation.*;
  * <p>
  * This is an example class! Please extend and modify for your needs.
  */
-@Constant(after = "isSet")
-@Container
+@ImmutableContainer(after = "isSet")
 public final class FlipSwitch {
 
     @Final(after = "isSet")

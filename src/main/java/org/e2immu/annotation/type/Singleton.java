@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.type;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,13 +20,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Shorthand for the combination of {@link Constant} and {@link Container}.
- * It indicates that the type is effectively constant, and the type is a container.
+ * Annotation used to indicate that a class is a <em>singleton</em>: only one instance can be created.
+ * The analyser currently implements two methods of detection of a singleton:
+ * <ol>
+ *     <li>a precondition on a private static boolean field in the constructor</li>
+ *     <li>one call from the initializer of a field to a single, private constructor.</li>
+ * </ol>
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
-public @interface ConstantContainer {
-
+@Target({ElementType.TYPE})
+public @interface Singleton {
     /**
      * Parameter to mark that the annotation should be absent, or present.
      * In verification mode, <code>absent=true</code> means that an error will be raised
@@ -44,30 +47,4 @@ public @interface ConstantContainer {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * Marker for eventual immutability.
-     *
-     * @return when the type is effectively level 1 immutable, set the empty string.
-     * When it is eventually level 1 immutable, return a comma-separated list of strings from <code>@Mark</code>
-     * values on some modifying methods of the type. After these have been called, the
-     * type will become effectively level 1 immutable.
-     */
-    String after() default "";
-
-    /**
-     * If present with value <code>true</code>, the decision-making process of this annotation was
-     * not conclusive.
-     *
-     * @return <code>true</code> when the decision-making process was cut short, and this value was chosen based
-     * on incomplete information.
-     */
-    boolean inconclusive() default false;
-
-    /**
-     * A string representation of the constant value.
-     *
-     * @return A string representation of the constant value.
-     */
-    String value() default "";
 }

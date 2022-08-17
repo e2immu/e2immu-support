@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.type;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,24 +20,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that a type is an <em>extension class</em> of another type <code>E</code>.
- * The following criteria are used:
+ * Annotation on a type to indicate that the type is a well-formed <em>utility class</em>:
  * <ol>
- * <li>the class is immutable or constant;</li>
- * <li>all non-private static methods with parameters (and there must be at least one) must have a 1st parameter:
- * <ol>
- *     <li>of type <code>E</code>, the type being extended,</li>
- *     <li>which is {@link NotNull};</li>
+ *     <li>The class is level 2 immutable,</li>
+ *     <li>all its methods are static, and</li>
+ *     <li>the class cannot be instantiated:
+ *       <ol>
+ *         <li>all its constructors are private, and there is at least one;</li>
+ *         <li>none of these methods call the constructors.</li>
+ *       </ol>
+ *     </li>
  * </ol>
- * <li>non-private static methods without parameters must return a value of type <code>E</code>, and must
- * also be {@link NotNull}.</li>
- * </ol>
- * Extension classes will often not be {@link Container}, because a modification of the first parameter
- * is pretty common.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE})
-public @interface ExtensionClass {
+public @interface UtilityClass {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -56,11 +53,4 @@ public @interface ExtensionClass {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * The type being extended (<code>E</code>); currently for decorative use only.
-     *
-     * @return The type being extended.
-     */
-    Class<?> of();
 }

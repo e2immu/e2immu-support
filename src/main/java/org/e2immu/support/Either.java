@@ -33,7 +33,7 @@ import java.util.Objects;
  * @param <A> The type of the left object.
  * @param <B> The type fo the right object.
  */
-@ImmutableContainer
+@ImmutableContainer(hc = true)
 public class Either<A, B> {
 
     // contracted, because getLeft and getRight cause exceptions

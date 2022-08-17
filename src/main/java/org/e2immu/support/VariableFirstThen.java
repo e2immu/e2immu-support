@@ -15,6 +15,9 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.Only;
+import org.e2immu.annotation.eventual.TestMark;
 
 import java.util.Objects;
 
@@ -30,7 +33,7 @@ import java.util.Objects;
  * @param <T> type of the <em>after</em> or final state
  */
 
-@ImmutableContainer(after = "first")
+@ImmutableContainer(after = "first", hc = true)
 public class VariableFirstThen<S, T> {
     @Final(after = "first")
     private volatile S first;
@@ -145,7 +148,7 @@ public class VariableFirstThen<S, T> {
      */
     @Override
     @NotModified
-    public boolean equals(@NotNull(absent = true) Object o) { // o is @NotModified because of Object
+    public boolean equals(@Nullable Object o) { // o is @NotModified because of Object
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VariableFirstThen<?, ?> firstThen = (VariableFirstThen<?, ?>) o;

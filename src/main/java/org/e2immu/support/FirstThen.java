@@ -15,6 +15,9 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.Only;
+import org.e2immu.annotation.eventual.TestMark;
 
 import java.util.Objects;
 
@@ -30,7 +33,7 @@ import java.util.Objects;
  * @param <T> type of the <em>after</em> or final state
  */
 
-@ImmutableContainer(after = "first")
+@ImmutableContainer(after = "first", hc = true)
 public class FirstThen<S, T> {
     @Final(after = "first")
     private volatile S first;

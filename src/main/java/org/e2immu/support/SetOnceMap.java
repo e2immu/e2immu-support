@@ -15,6 +15,7 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Only;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ import java.util.stream.Stream;
  * @param <K> The type for keys.
  * @param <V> The type for values.
  */
-@ImmutableContainer(after = "frozen")
+@ImmutableContainer(after = "frozen", hc = true)
 public class SetOnceMap<K, V> extends Freezable {
 
     private final Map<K, V> map = new HashMap<>();
@@ -40,8 +41,8 @@ public class SetOnceMap<K, V> extends Freezable {
      * Put an key-value pair in the map. You cannot use the same key twice, not even with the same value.
      * Null keys or values are not permitted.
      *
-     * @param k the key, must not be null
-     * @param v the value, must not be null
+     * @param k the key, must not be null; default annotation @Transfer
+     * @param v the value, must not be null; default annotation @Transfer
      * @throws IllegalStateException when the map is already frozen, or the key is already present
      * @throws NullPointerException  when a parameter is null
      */
@@ -71,7 +72,7 @@ public class SetOnceMap<K, V> extends Freezable {
     @Only(before = "frozen")
     @NotNull
     @Modified
-    public V getOrCreate(@NotNull K k, @Container(contract = true) @NotNull1 Function<K, V> generator) {
+    public V getOrCreate(@NotNull K k, @Container(contract = true) @NotNull(content = true) Function<K, V> generator) {
         ensureNotFrozen();
         V v = map.get(k);
         if (v != null) return v;
@@ -154,10 +155,11 @@ public class SetOnceMap<K, V> extends Freezable {
 
     /**
      * Return a stream of (non-null) map entries.
+     * Default annotations @Transfer, @ImmutableContainer
      *
      * @return the map entries.
      */
-    @NotNull1
+    @NotNull(content = true)
     @NotModified
     public Stream<Map.Entry<K, V>> stream() {
         return map.entrySet().stream();
@@ -170,7 +172,7 @@ public class SetOnceMap<K, V> extends Freezable {
      * @param setOnceMap the source.
      */
     @Only(before = "frozen")
-    public void putAll(SetOnceMap<K, V> setOnceMap) {
+    public void putAll(@Independent(hc=true) SetOnceMap<K, V> setOnceMap) {
         // NOTE: this line in technically not needed, https://github.com/e2immu/e2immu/issues/49
         ensureNotFrozen();
         setOnceMap.stream().forEach(e -> put(e.getKey(), e.getValue()));
@@ -180,6 +182,7 @@ public class SetOnceMap<K, V> extends Freezable {
      * Return a level 2 immutable copy of the underlying map.
      * <p>
      * Only present in Java 10+.
+     * Default annotation: @Transfer
      *
      * @return a level 2 immutable copy
      */

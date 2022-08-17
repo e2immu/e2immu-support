@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.rare;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

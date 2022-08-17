@@ -16,8 +16,8 @@ package org.e2immu.support;
 
 import org.e2immu.annotation.Final;
 import org.e2immu.annotation.ImmutableContainer;
-import org.e2immu.annotation.Mark;
-import org.e2immu.annotation.TestMark;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.TestMark;
 
 /**
  * Super-class for eventually immutable types.
@@ -33,7 +33,7 @@ import org.e2immu.annotation.TestMark;
  * This is an example class! Please extend and modify for your needs.
  */
 
-@ImmutableContainer(after = "frozen")
+@ImmutableContainer(after = "frozen", hc = true)
 public abstract class Freezable {
 
     @Final(after = "frozen")

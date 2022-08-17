@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.rare;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,26 +20,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation on a method, always contracted, indicating that after calling this method,
- * no other methods may be called anymore on the object. After calling a finalizer, the
- * object has gone into a <em>final</em> state.
+ * Annotation used to indicate that modifications on a field or parameter can be ignored.
+ * The simple use case is <code>System.out</code>, where <code>println</code> is a modifying
+ * method. To your application, however, this may not count as a modification but rather
+ * as an action external to the system.
  * <p>
- * The analyser imposes strict rules for the life-cycle of objects with a finalizer method:
- * <ol>
- *     <li>
- *         Any field of a type with finalizers must be effectively final (marked with {@link Final}).
- *     </li>
- *     <li>
- *         A finalizer method can only be called on a field inside a method which is marked as a finalizer as well.
- *     </li>
- *     <li>
- *         A finalizer method can never be called on a parameter or any variable linked to it,
- *         with linking as in {@link Linked}.
- *     </li>
- * </ol>
- * These rules allow the analyser to enforce the final state of the object.
+ * The use case for parameters is a <code>forEach</code> method which takes a consumer as a
+ * parameter. Modifications inside the implementation of the <code>accept</code> method of the
+ * consumer should typically not prevent the type of the <code>forEach</code> method to become a container.
+ * <p>
+ * This annotation is always contracted, never computed.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.METHOD)
-public @interface Finalizer {
+@Target({ElementType.FIELD, ElementType.PARAMETER})
+public @interface IgnoreModifications {
+    // contract: true, absent: false
 }

@@ -12,7 +12,10 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.eventual;
+
+import org.e2immu.annotation.FinalFields;
+import org.e2immu.annotation.Immutable;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,13 +23,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to mark a non-modifying method, returning a boolean
- * indicating whether the object is in the <em>after</em> state (<code>true</code>, marked)
- * or in the <em>before</em> state (<code>false</code>, not yet marked).
+ * Annotation computed when an eventually immutable type is guaranteed to be in its _before_ state, i.e., none of the marked methods have been called yet.
+ * <p>
+ * Opposite of {@link FinalFields} and {@link Immutable} as a dynamic type annotation on fields, methods, and parameters.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.METHOD)
-public @interface TestMark {
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+public @interface BeforeMark {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -45,19 +48,4 @@ public @interface TestMark {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
-
-    /**
-     * The name of the mark, as explained in {@link Mark}.
-     *
-     * @return the name of the mark.
-     */
-    String value();
-
-    /**
-     * This parameter, when <code>true</code>, indicates that the boolean value has been inverted: <code>true</code>
-     * is returned when the object is <em>before</em> the mark, and <code>false</code> when the object is <em>after</em> the mark.
-     *
-     * @return <code>true</code> when the meaning has been inverted.
-     */
-    boolean before() default false;
 }

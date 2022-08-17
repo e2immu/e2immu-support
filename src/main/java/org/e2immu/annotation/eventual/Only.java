@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.eventual;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,14 +20,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Content not null, one level up from not null.
+ * This annotation is part of the eventual immutability computations. Preconditions govern whether
+ * the method can be executed when the object is in the <em>before</em> state, or in the <em>after</em> state.
  * <p>
- * Note that a field, method or parameter cannot {@link NotNull} and {@link NotNull1} at the same time.
+ * Contracting of this annotation is currently not implemented (see https://github.com/e2immu/e2immu/issues/48).
  */
-
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-public @interface NotNull1 {
+@Target({ElementType.METHOD})
+public @interface Only {
 
     /**
      * Parameter to mark that the annotation should be absent, or present.
@@ -46,4 +46,20 @@ public @interface NotNull1 {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * When the method can only be executed in the <em>before</em> state, this parameter shows the name of the mark (see {@link Mark}).
+     * Note that the <code>before</code> and <code>after</code> parameters cannot be present at the same time.
+     *
+     * @return the name of the mark
+     */
+    String before() default "";
+
+    /**
+     * When the method can only be executed in the <em>after</em> state, this parameter shows the name of the mark (see {@link Mark}).
+     * Note that the <code>before</code> and <code>after</code> parameters cannot be present at the same time.
+     *
+     * @return the name of the mark
+     */
+    String after() default "";
 }

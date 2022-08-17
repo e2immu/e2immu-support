@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
  * Please refer to the <em>e2immu</em> manual for an in-depth discussion of this concept.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE})
 public @interface Modified {
 
     /**

@@ -20,26 +20,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation indicating that a parameter or return value of a method is independent of the
- * fields of the type: there is no linking of the mutable content between the parameter or
- * return value, and any field of the type. Linking of the hidden content is permitted.
- * <p>
- * On a type, the annotation indicates that it follows the rules of independence of types.
- * <p>
- * On a parameter, the annotation indicates that the type can be part of the hidden content.
+ * Annotation to indicate <em>absence of linking</em>, or that only transfer of hidden content is allowed.
  */
-
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER,
-        ElementType.TYPE_PARAMETER, ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
 public @interface Independent {
 
     /**
-     * used to mark a independence of other parameters
+     * used to mark a dependence on other parameters
      *
      * @return the parameters, starting from 0
      */
     int[] parameters() default {};
+
+    boolean hc() default false;
 
     /**
      * Parameter to mark that the annotation should be absent, or present.

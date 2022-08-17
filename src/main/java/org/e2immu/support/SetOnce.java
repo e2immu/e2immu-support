@@ -15,6 +15,9 @@
 package org.e2immu.support;
 
 import org.e2immu.annotation.*;
+import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.Only;
+import org.e2immu.annotation.eventual.TestMark;
 
 import java.util.Objects;
 
@@ -26,7 +29,7 @@ import java.util.Objects;
  *
  * @param <T> The value's type.
  */
-@ImmutableContainer(after = "t")
+@ImmutableContainer(after = "t", hc = true)
 public class SetOnce<T> {
 
     @Final(after = "t")

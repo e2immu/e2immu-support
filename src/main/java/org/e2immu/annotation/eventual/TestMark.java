@@ -12,7 +12,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.e2immu.annotation;
+package org.e2immu.annotation.eventual;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,16 +20,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to indicate that a class is a <em>singleton</em>: only one instance can be created.
- * The analyser currently implements two methods of detection of a singleton:
- * <ol>
- *     <li>a precondition on a private static boolean field in the constructor</li>
- *     <li>one call from the initializer of a field to a single, private constructor.</li>
- * </ol>
+ * Annotation to mark a non-modifying method, returning a boolean
+ * indicating whether the object is in the <em>after</em> state (<code>true</code>, marked)
+ * or in the <em>before</em> state (<code>false</code>, not yet marked).
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE})
-public @interface Singleton {
+@Target(ElementType.METHOD)
+public @interface TestMark {
+
     /**
      * Parameter to mark that the annotation should be absent, or present.
      * In verification mode, <code>absent=true</code> means that an error will be raised
@@ -47,4 +45,19 @@ public @interface Singleton {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * The name of the mark, as explained in {@link Mark}.
+     *
+     * @return the name of the mark.
+     */
+    String value();
+
+    /**
+     * This parameter, when <code>true</code>, indicates that the boolean value has been inverted: <code>true</code>
+     * is returned when the object is <em>before</em> the mark, and <code>false</code> when the object is <em>after</em> the mark.
+     *
+     * @return <code>true</code> when the meaning has been inverted.
+     */
+    boolean before() default false;
 }
