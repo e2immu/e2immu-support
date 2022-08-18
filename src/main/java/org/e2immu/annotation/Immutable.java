@@ -67,6 +67,7 @@ public @interface Immutable {
 
     /**
      * hidden content
+     *
      * @return true when the type has hidden content, i.e., it is not deeply or recursively immutable.
      */
     boolean hc() default false;

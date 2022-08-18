@@ -52,4 +52,12 @@ public @interface Modified {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * For private methods only
+     *
+     * @return : true when the modification only occurs in the construction phase, or in factory methods.
+     * As a consequence, the method can be ignored for the computation of immutability.
+     */
+    boolean construction() default false;
 }

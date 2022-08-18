@@ -66,7 +66,19 @@ public @interface ImmutableContainer {
 
     /**
      * hidden content
+     *
      * @return true when the type has hidden content, i.e., it is not deeply or recursively immutable.
      */
     boolean hc() default false;
+
+    /**
+     * constant value, when deeply immutable.
+     *
+     * @return string representation of the constant, without the quotes in the case of a string. Use null for the
+     * null value, and use constant = true for the explicit test of returning the empty string.
+     * <p>
+     * To test the absence of a constant value, simply omit the parameter.
+     * You cannot test the empty string as a constant value.
+     */
+    String value() default "";
 }
