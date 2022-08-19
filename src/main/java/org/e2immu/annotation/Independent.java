@@ -23,7 +23,8 @@ import java.lang.annotation.Target;
  * Annotation to indicate <em>absence of linking</em>, or that only transfer of hidden content is allowed.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD,
+        ElementType.TYPE_PARAMETER})
 public @interface Independent {
 
     /**
