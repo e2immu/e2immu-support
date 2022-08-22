@@ -55,4 +55,14 @@ public @interface Final {
      * @return the name of the mark
      */
     String after() default "";
+
+    /**
+     * implied: if true, the annotation is generated internally for verification or educational purposes,
+     * but not output, because it is implied.
+     * <p>
+     * internal or demonstration use only!
+     *
+     * @return true when the annotation is not really necessary
+     */
+    boolean implied() default false;
 }

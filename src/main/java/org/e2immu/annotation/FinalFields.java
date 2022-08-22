@@ -63,4 +63,15 @@ public @interface FinalFields {
      * on incomplete information.
      */
     boolean inconclusive() default false;
+
+    /**
+     * implied: if true, the annotation is generated internally for verification or educational purposes,
+     * but not output, because it is implied.
+     * For example, there is no point in annotating every array with  <code>@FinalFields</code>.
+     * <p>
+     * internal or demonstration use only!
+     *
+     * @return true when the annotation is not really necessary
+     */
+    boolean implied() default false;
 }

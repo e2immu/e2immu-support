@@ -21,8 +21,8 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation indicating that the type is effectively or eventually immutable: its fields are {@link Final},
- * its fields are {@link NotModified}, its fields either private or 2 immutable themselves,
- * and non-private methods and constructors are {@link Transfer} or {@link Independent}.
+ * its fields are {@link NotModified}, its fields either private or immutable themselves,
+ * and non-private methods and constructors are {@link Independent}.
  */
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
@@ -71,4 +71,16 @@ public @interface Immutable {
      * @return true when the type has hidden content, i.e., it is not deeply or recursively immutable.
      */
     boolean hc() default false;
+
+    /**
+     * implied: if true, the annotation is generated internally for verification or educational purposes,
+     * but not output, because it is implied.
+     * For example, there is no point in annotating every return value of type {@link java.lang.String} with
+     * <code>@ImmutableContainer</code>...
+     * <p>
+     * internal or demonstration use only!
+     *
+     * @return true when the annotation is not really necessary
+     */
+    boolean implied() default false;
 }

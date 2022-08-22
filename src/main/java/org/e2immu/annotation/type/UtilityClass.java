@@ -22,8 +22,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation on a type to indicate that the type is a well-formed <em>utility class</em>:
  * <ol>
- *     <li>The class is level 2 immutable,</li>
- *     <li>all its methods are static, and</li>
+ *     <li>The class is immutable without hidden content, and</li>
  *     <li>the class cannot be instantiated:
  *       <ol>
  *         <li>all its constructors are private, and there is at least one;</li>

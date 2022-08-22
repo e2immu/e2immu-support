@@ -55,4 +55,9 @@ public @interface NotNull {
     boolean contract() default false;
 
     boolean content() default false;
+
+    /**
+     * @return <code>true</code> in case of primitives, which cannot be null
+     */
+    boolean implied() default false;
 }

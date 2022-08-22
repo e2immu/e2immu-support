@@ -44,4 +44,11 @@ public @interface Nullable {
      * @return <code>true</code> when switching to contract mode.
      */
     boolean contract() default false;
+
+    /**
+     * this annotation is only written to stress to the user that the given field, method or parameter can be null.
+     *
+     * @return <code>true</code> when the annotation is implied; this is the default situation
+     */
+    boolean implied() default true;
 }

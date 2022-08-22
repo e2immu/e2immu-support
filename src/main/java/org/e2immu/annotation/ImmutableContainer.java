@@ -81,4 +81,16 @@ public @interface ImmutableContainer {
      * You cannot test the empty string as a constant value.
      */
     String value() default "";
+
+    /**
+     * implied: if true, the annotation is generated internally for verification or educational purposes,
+     * but not output, because it is implied.
+     * For example, there is no point in annotating every return value of type {@link java.lang.String} with
+     * <code>@ImmutableContainer</code>...
+     * <p>
+     * internal or demonstration use only!
+     *
+     * @return true when the annotation is not really necessary
+     */
+    boolean implied() default false;
 }
