@@ -154,15 +154,65 @@ public class SetOnceMap<K, V> extends Freezable {
     }
 
     /**
-     * Return a stream of (non-null) map entries.
-     * Default annotations @Transfer, @ImmutableContainer
+     * Return a stream of map keys.
      *
-     * @return the map entries.
+     * @return a stream of map keys.
      */
     @NotNull(content = true)
     @NotModified
+    @ImmutableContainer(hc = true)
+    public Stream<K> keyStream() {
+        return map.keySet().stream();
+    }
+
+    /**
+     * Return a stream of map values.
+     *
+     * @return a stream of map values.
+     */
+    @NotNull(content = true)
+    @NotModified
+    @ImmutableContainer(hc = true)
+    public Stream<V> valueStream() {
+        return map.values().stream();
+    }
+
+
+    /*
+    Return entries that cannot be set, so that the stream is immutable.
+     */
+    private static class Entry<K, V> implements Map.Entry<K, V> {
+
+        private final K k;
+        private final V v;
+
+        private Entry(K k, V v) {
+            this.k = Objects.requireNonNull(k);
+            this.v = Objects.requireNonNull(v);
+        }
+
+        @Override
+        public K getKey() {
+            return k;
+        }
+
+        @Override
+        public V getValue() {
+            return v;
+        }
+
+        @Override
+        public V setValue(V value) {
+            Objects.requireNonNull(value);
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    @NotNull(contract = true)
+    @NotModified
+    @ImmutableContainer(hc = true)
     public Stream<Map.Entry<K, V>> stream() {
-        return map.entrySet().stream();
+        return map.entrySet().stream().map(e -> new Entry<>(e.getKey(), e.getValue()));
     }
 
     /**
@@ -172,17 +222,16 @@ public class SetOnceMap<K, V> extends Freezable {
      * @param setOnceMap the source.
      */
     @Only(before = "frozen")
-    public void putAll(@Independent(hc=true) SetOnceMap<K, V> setOnceMap) {
+    public void putAll(@Independent(hc = true) SetOnceMap<K, V> setOnceMap) {
         // NOTE: this line in technically not needed, https://github.com/e2immu/e2immu/issues/49
         ensureNotFrozen();
-        setOnceMap.stream().forEach(e -> put(e.getKey(), e.getValue()));
+        setOnceMap.map.forEach(this::put);
     }
 
     /**
      * Return a level 2 immutable copy of the underlying map.
      * <p>
      * Only present in Java 10+.
-     * Default annotation: @Transfer
      *
      * @return a level 2 immutable copy
      */
