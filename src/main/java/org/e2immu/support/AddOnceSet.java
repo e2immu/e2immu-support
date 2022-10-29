@@ -121,6 +121,7 @@ public class AddOnceSet<V> extends Freezable {
      */
     @NotModified
     @NotNull(content = true)
+    @Independent(hc = true)
     public Stream<V> stream() {
         return set.keySet().stream();
     }
