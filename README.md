@@ -19,3 +19,5 @@ the `Stream` calls in the same classes, you can go down to Java 1.7.
 
 As of the end of June 2022, version 0.2.0 is the version still associated with the `main` branch, and version 0.5.0 is the version that goes with the `development` branch.
 The _Road to Immutability_ document corresponds to the development branch.
+
+Version 0.6.2 is of July 2023. The one addition of 2023 is the `@Commutable` annotation.

@@ -18,7 +18,7 @@ plugins {
     id 'maven-publish'
 }
 
-version '0.6.1'
+version '0.6.2'
 
 repositories {
     mavenCentral()
@@ -39,7 +39,7 @@ test {
 
 dependencies {
     // TEST
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2' // EPL v2
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3' // EPL v2
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
