@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * and the two-parameter <code>of(x, y)</code> method in {@link java.util.Set}.
  * <p>
  * When applied to methods, it indicates that the order of execution is interchangeable.
- * Obviously, this applies to modifying methods only.
+ * Currently, this system applies to modifying methods only.
  *
  * <p>
  * The parameters help describe the commutation properties:
@@ -39,11 +39,11 @@ import java.lang.annotation.Target;
  * <li>Two different parallel groups can be created using the 'par' parameter: @Commutable(par="group1") implies S(main)P(group1).
  * <li>A sequential group within the default parallel group is created using the 'seq' parameter: @Commutable(seq="s")
  * implies S(main)P(default)S(s).
- * <li>The par2 parameter can only be used to create parallel groups of the form S(main)P(default)S(s)P(p).
- * <li>The seq2 parameter can only be used to create sequential groups inside a specific parallel group: S(main)P(p1)S(s).
+ * <li>The 'multi' parameter indicates that multiple calls to the same method can be grouped by the method mentioned in the parameter;
+ * see e.g. multiple calls to `Collection.add()` can be replaced by a single `Collection.addAll()` call.
  * </ul>
- *
- * The parameters either take a group name, or a comma separated list of group name and method parameter names.
+ * <p>
+ * The parameters either take a group name, or a comma separated list of group name and method parameter index.
  * <p>
  * Note that setters (annotated with {@link org.e2immu.annotation.method.GetSet}), are commutable in the
  * default parallel group. The <code>@Commutable</code> annotation is implied.
@@ -51,8 +51,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.METHOD, ElementType.PARAMETER})
 public @interface Commutable {
-    String par() default "";
+    String multi() default "";
+
     String seq() default "";
-    String par2() default  "";
-    String seq2() default "";
+
+    boolean contract() default false;
+
+    // for setters
+    boolean implied() default false;
 }
