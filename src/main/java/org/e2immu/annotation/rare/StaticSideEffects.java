@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
  * on a type, that a type has at least one method with static side effects.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
 public @interface StaticSideEffects {
     /**
      * Parameter to mark that the annotation should be absent, or present.
