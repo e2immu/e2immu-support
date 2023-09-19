@@ -27,13 +27,6 @@ import java.lang.annotation.Target;
         ElementType.TYPE_PARAMETER})
 public @interface Independent {
 
-    /**
-     * used to mark a dependence on other parameters
-     *
-     * @return the parameters, starting from 0
-     */
-    int[] parameters() default {};
-
     boolean hc() default false;
 
     /**
@@ -74,4 +67,34 @@ public @interface Independent {
      * @return true when the annotation is not really necessary
      */
     boolean implied() default false;
+
+
+    /**
+     * used to mark a dependence on other parameters
+     *
+     * @return the parameters, starting from 0
+     */
+    int[] dependentParameters() default {};
+
+    /*
+     * used to mark sharing of hidden content with other parameters
+     */
+    int[] hcParameters() default {};
+
+    /**
+     * Indicates that a parameter shares hidden content with the return value of the method
+     *
+     * @return true when the parameter is linked to the return value, sharing hidden content
+     */
+
+    boolean hcReturnValue() default false;
+
+    /**
+     * Indicates that the return value of the method is dependent on this parameter,
+     * i.e. modifications in the parameter argument result in modifications to the result value.
+     *
+     * @return true when the return value of the method is dependent on this parameter.
+     */
+    boolean dependentReturnValue() default false;
+
 }
