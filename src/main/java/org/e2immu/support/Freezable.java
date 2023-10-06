@@ -17,6 +17,7 @@ package org.e2immu.support;
 import org.e2immu.annotation.Final;
 import org.e2immu.annotation.ImmutableContainer;
 import org.e2immu.annotation.eventual.Mark;
+import org.e2immu.annotation.eventual.Only;
 import org.e2immu.annotation.eventual.TestMark;
 
 /**
@@ -66,6 +67,7 @@ public abstract class Freezable {
      *
      * @throws IllegalStateException when the object is already in the final, frozen state.
      */
+    @Only(before = "frozen")
     public void ensureNotFrozen() {
         if (frozen) throw new IllegalStateException("Already frozen!");
     }
@@ -75,6 +77,7 @@ public abstract class Freezable {
      *
      * @throws IllegalStateException when the object is not yet in the final, frozen state.
      */
+    @Only(after = "frozen")
     public void ensureFrozen() {
         if (!frozen) throw new IllegalStateException("Not yet frozen!");
     }
