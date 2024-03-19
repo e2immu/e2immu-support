@@ -27,7 +27,7 @@ java {
 }
 
 tasks.jar {
-    from(sourceSets.main.get().output)
+    from(sourceSets.main.get().allSource)
 }
 
 tasks.test {
@@ -56,7 +56,7 @@ publishing {
 
             artifactId = "e2immu-support"
             groupId = "org.e2immu"
-            version = "0.6.2"
+            version = "0.6.3"
 
             pom {
                 name = "e2immu graph support"
