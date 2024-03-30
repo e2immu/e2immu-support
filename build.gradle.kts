@@ -56,7 +56,7 @@ publishing {
 
             artifactId = "e2immu-support"
             groupId = "org.e2immu"
-            version = "0.6.3"
+            version = "0.6.4"
 
             pom {
                 name = "e2immu graph support"
